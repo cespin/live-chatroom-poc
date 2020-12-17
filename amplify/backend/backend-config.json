@@ -1,1 +1,10 @@
-{}
+{
+  "auth": {
+    "livechatroompoc90a372a6": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

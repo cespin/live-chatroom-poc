@@ -10,6 +10,11 @@
       "StackName": "amplify-livechatroompoc-dev-191745",
       "StackId": "arn:aws:cloudformation:us-east-2:250036610033:stack/amplify-livechatroompoc-dev-191745/8b931480-409c-11eb-aadd-023a4a81d148",
       "AmplifyAppId": "d36no5iczewz3v"
+    },
+    "categories": {
+      "auth": {
+        "livechatroompoc90a372a6": {}
+      }
     }
   },
   "main": {

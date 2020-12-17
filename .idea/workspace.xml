@@ -3,6 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9a12ea45-d8e6-46e1-bc47-e63f25d0c1f9" name="Default Changelist" comment="Initial Commit">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/backend/backend-config.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/backend/backend-config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amplify/team-provider-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/amplify/team-provider-info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <list id="c99cb15d-f3be-4a17-aedc-a50bfa1cc632" name="Uncommitable" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,11 +38,13 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="9a12ea45-d8e6-46e1-bc47-e63f25d0c1f9" name="Default Changelist" comment="" />
+      <changelist id="c99cb15d-f3be-4a17-aedc-a50bfa1cc632" name="Uncommitable" comment="" />
       <created>1608230058844</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608230058844</updated>
       <workItem from="1608230060672" duration="537000" />
+      <workItem from="1608233773320" duration="2261000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1608230086717</created>
