@@ -1,4 +1,17 @@
 {
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-livechatroompoc-dev-191745-authRole",
+      "UnauthRoleArn": "arn:aws:iam::250036610033:role/amplify-livechatroompoc-dev-191745-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::250036610033:role/amplify-livechatroompoc-dev-191745-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-livechatroompoc-dev-191745-deployment",
+      "UnauthRoleName": "amplify-livechatroompoc-dev-191745-unauthRole",
+      "StackName": "amplify-livechatroompoc-dev-191745",
+      "StackId": "arn:aws:cloudformation:us-east-2:250036610033:stack/amplify-livechatroompoc-dev-191745/8b931480-409c-11eb-aadd-023a4a81d148",
+      "AmplifyAppId": "d36no5iczewz3v"
+    }
+  },
   "main": {
     "awscloudformation": {
       "AuthRoleName": "amplify-livechatroompoc-main-134145-authRole",
