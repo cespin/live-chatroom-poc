@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/",
+            "lambdaFunction": "meeting",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH"
+                ]
+            },
+            "policyResourceName": "/"
+        }
+    ],
+    "resourceName": "meeting",
+    "apiName": "meeting",
+    "functionArns": [
+        {
+            "lambdaFunction": "meeting"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-livechatroompoc-dev-191745-authRole",
+        "unAuthRoleName": "amplify-livechatroompoc-dev-191745-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "meeting",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

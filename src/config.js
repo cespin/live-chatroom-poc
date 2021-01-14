@@ -16,4 +16,4 @@ export const CHAT_WEBSOCKET = "";
 export const CHIME_LOG_LEVEL = 'WARN';
 
 // Chime-Web UI debugging logging: true / false
-export const DEBUG = false;
+export const DEBUG = true;

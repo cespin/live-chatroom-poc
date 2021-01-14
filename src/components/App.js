@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route
+    BrowserRouter as Router,
+    Switch,
+    Route
 } from "react-router-dom";
 import * as config from '../config';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify, {Auth} from 'aws-amplify';
 import awsconfig from '../aws-exports';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import {withAuthenticator, AmplifySignOut} from '@aws-amplify/ui-react';
 import ChimeSdkWrapper from './chime/ChimeSdkWrapper';
 import Home from './chimeWeb/Welcome';
 import Join from './chimeWeb/Join';
@@ -17,36 +17,30 @@ import End from './chimeWeb/End';
 Amplify.configure(awsconfig);
 
 function App() {
-  const chime = new ChimeSdkWrapper();
-  const baseHref = config.BASE_HREF;
+    const chime = new ChimeSdkWrapper();
+    const baseHref = config.BASE_HREF;
 
-  return (
-    <div className="App full-width full-height">
-      <Router>
-        <Switch>
-          <Route path={`${baseHref}/end`}>
-            <End />
-          </Route>
-          <Route path={`${baseHref}/meeting`}>
-            <Meeting
-              chime={chime}
-            />
-          </Route>
-          <Route path={`${baseHref}/join`}>
-            <Join
-              chime={chime}
-            />
-          </Route>
-          <Route path={`${baseHref}`}>
-            <Home
-              chime={chime}
-            />
-          </Route>
-        </Switch>
-      </Router>
-        <AmplifySignOut />
-    </div>
-  );
+    return (
+        <div className="App full-width full-height">
+            <AmplifySignOut/>
+            <Router>
+                <Switch>
+                    <Route path={`${baseHref}/end`}>
+                        <End/>
+                    </Route>
+                    <Route path={`${baseHref}/meeting`}>
+                        <Meeting chime={chime}/>
+                    </Route>
+                    <Route path={`${baseHref}/join`}>
+                        <Join chime={chime}/>
+                    </Route>
+                    <Route path={`${baseHref}`}>
+                        <Home chime={chime}/>
+                    </Route>
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default withAuthenticator(App);
