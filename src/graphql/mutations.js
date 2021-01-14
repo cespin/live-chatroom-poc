@@ -1,108 +1,144 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTask = /* GraphQL */ `
-  mutation CreateTask(
-    $input: CreateTaskInput!
-    $condition: ModelTaskConditionInput
-  ) {
-    createTask(input: $input, condition: $condition) {
-      id
-      title
-      description
-      status
-      _version
-      _deleted
-      _lastChangedAt
+export const createConversation = /* GraphQL */ `
+  mutation CreateConversation($createdAt: String, $id: ID!, $name: String!) {
+    createConversation(createdAt: $createdAt, id: $id, name: $name) {
       createdAt
-      updatedAt
+      id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
+      name
     }
   }
 `;
-export const updateTask = /* GraphQL */ `
-  mutation UpdateTask(
-    $input: UpdateTaskInput!
-    $condition: ModelTaskConditionInput
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage(
+    $content: String
+    $conversationId: ID!
+    $createdAt: String!
+    $id: ID!
   ) {
-    updateTask(input: $input, condition: $condition) {
-      id
-      title
-      description
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteTask = /* GraphQL */ `
-  mutation DeleteTask(
-    $input: DeleteTaskInput!
-    $condition: ModelTaskConditionInput
-  ) {
-    deleteTask(input: $input, condition: $condition) {
-      id
-      title
-      description
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createPrivateNote = /* GraphQL */ `
-  mutation CreatePrivateNote(
-    $input: CreatePrivateNoteInput!
-    $condition: ModelPrivateNoteConditionInput
-  ) {
-    createPrivateNote(input: $input, condition: $condition) {
-      id
+    createMessage(
+      content: $content
+      conversationId: $conversationId
+      createdAt: $createdAt
+      id: $id
+    ) {
+      author {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+      }
       content
-      _version
-      _deleted
-      _lastChangedAt
+      conversationId
       createdAt
-      updatedAt
-      owner
+      id
+      isSent
+      recipient {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+      }
+      sender
     }
   }
 `;
-export const updatePrivateNote = /* GraphQL */ `
-  mutation UpdatePrivateNote(
-    $input: UpdatePrivateNoteInput!
-    $condition: ModelPrivateNoteConditionInput
-  ) {
-    updatePrivateNote(input: $input, condition: $condition) {
+export const createUser = /* GraphQL */ `
+  mutation CreateUser($username: String!) {
+    createUser(username: $username) {
+      cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
       id
-      content
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      owner
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
+      username
+      registered
     }
   }
 `;
-export const deletePrivateNote = /* GraphQL */ `
-  mutation DeletePrivateNote(
-    $input: DeletePrivateNoteInput!
-    $condition: ModelPrivateNoteConditionInput
-  ) {
-    deletePrivateNote(input: $input, condition: $condition) {
-      id
-      content
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-      owner
+export const createUserConversations = /* GraphQL */ `
+  mutation CreateUserConversations($conversationId: ID!, $userId: ID!) {
+    createUserConversations(conversationId: $conversationId, userId: $userId) {
+      associated {
+        associated {
+          conversationId
+          userId
+        }
+        conversation {
+          createdAt
+          id
+          name
+        }
+        conversationId
+        user {
+          cognitoId
+          id
+          username
+          registered
+        }
+        userId
+      }
+      conversation {
+        createdAt
+        id
+        messages {
+          nextToken
+        }
+        name
+      }
+      conversationId
+      user {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+      }
+      userId
     }
   }
 `;

@@ -1,134 +1,176 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const syncTasks = /* GraphQL */ `
-  query SyncTasks(
-    $filter: ModelTaskFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncTasks(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
+export const allMessage = /* GraphQL */ `
+  query AllMessage($after: String, $conversationId: ID!, $first: Int) {
+    allMessage(after: $after, conversationId: $conversationId, first: $first) {
+      author {
+        cognitoId
+        conversations {
+          nextToken
+        }
         id
-        title
-        description
-        status
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+        messages {
+          nextToken
+        }
+        username
+        registered
       }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getTask = /* GraphQL */ `
-  query GetTask($id: ID!) {
-    getTask(id: $id) {
-      id
-      title
-      description
-      status
-      _version
-      _deleted
-      _lastChangedAt
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listTasks = /* GraphQL */ `
-  query ListTasks(
-    $filter: ModelTaskFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTasks(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        title
-        description
-        status
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncPrivateNotes = /* GraphQL */ `
-  query SyncPrivateNotes(
-    $filter: ModelPrivateNoteFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncPrivateNotes(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        content
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getPrivateNote = /* GraphQL */ `
-  query GetPrivateNote($id: ID!) {
-    getPrivateNote(id: $id) {
-      id
       content
-      _version
-      _deleted
-      _lastChangedAt
+      conversationId
       createdAt
-      updatedAt
-      owner
+      id
+      isSent
+      recipient {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+      }
+      sender
     }
   }
 `;
-export const listPrivateNotes = /* GraphQL */ `
-  query ListPrivateNotes(
-    $filter: ModelPrivateNoteFilterInput
-    $limit: Int
-    $nextToken: String
+export const allMessageConnection = /* GraphQL */ `
+  query AllMessageConnection(
+    $after: String
+    $conversationId: ID!
+    $first: Int
   ) {
-    listPrivateNotes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
+    allMessageConnection(
+      after: $after
+      conversationId: $conversationId
+      first: $first
+    ) {
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+        }
         content
-        _version
-        _deleted
-        _lastChangedAt
+        conversationId
         createdAt
-        updatedAt
-        owner
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+        }
+        sender
       }
       nextToken
-      startedAt
+    }
+  }
+`;
+export const allMessageFrom = /* GraphQL */ `
+  query AllMessageFrom(
+    $after: String
+    $conversationId: ID!
+    $first: Int
+    $sender: String!
+  ) {
+    allMessageFrom(
+      after: $after
+      conversationId: $conversationId
+      first: $first
+      sender: $sender
+    ) {
+      author {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+      }
+      content
+      conversationId
+      createdAt
+      id
+      isSent
+      recipient {
+        cognitoId
+        conversations {
+          nextToken
+        }
+        id
+        messages {
+          nextToken
+        }
+        username
+        registered
+      }
+      sender
+    }
+  }
+`;
+export const allUser = /* GraphQL */ `
+  query AllUser($after: String, $first: Int) {
+    allUser(after: $after, first: $first) {
+      cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
+      id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
+      username
+      registered
+    }
+  }
+`;
+export const me = /* GraphQL */ `
+  query Me {
+    me {
+      cognitoId
+      conversations {
+        nextToken
+        userConversations {
+          conversationId
+          userId
+        }
+      }
+      id
+      messages {
+        messages {
+          content
+          conversationId
+          createdAt
+          id
+          isSent
+          sender
+        }
+        nextToken
+      }
+      username
+      registered
     }
   }
 `;

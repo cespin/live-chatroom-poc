@@ -21,6 +21,21 @@
           ]
         }
       ]
+    },
+    "chat": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authlivechatroompoc90a372a6"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
     }
   },
   "function": {

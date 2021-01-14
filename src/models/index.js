@@ -4,9 +4,13 @@ import { schema } from './schema';
 
 
 
-const { Task, PrivateNote } = initSchema(schema);
+const { Message, User, UserConverstationsConnection, UserConversations, Conversation, MessageConnection } = initSchema(schema);
 
 export {
-  Task,
-  PrivateNote
+  Message,
+  User,
+  UserConverstationsConnection,
+  UserConversations,
+  Conversation,
+  MessageConnection
 };
