@@ -5,17 +5,17 @@
     "env": {
       "Type": "String"
     },
-    "storagedynamo903915baName": {
+    "storageAttendeesName": {
       "Type": "String",
-      "Default": "storagedynamo903915baName"
+      "Default": "storageAttendeesName"
     },
-    "storagedynamo903915baArn": {
+    "storageAttendeesArn": {
       "Type": "String",
-      "Default": "storagedynamo903915baArn"
+      "Default": "storageAttendeesArn"
     },
-    "storagedynamo903915baStreamArn": {
+    "storageAttendeesStreamArn": {
       "Type": "String",
-      "Default": "storagedynamo903915baArn"
+      "Default": "storageAttendeesArn"
     }
   },
   "Conditions": {
@@ -40,12 +40,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "dynamo903915baTrigger36ec3c2a",
+            "AttendeesTriggerfa7d57bd",
             {
               "Fn::Join": [
                 "",
                 [
-                  "dynamo903915baTrigger36ec3c2a",
+                  "AttendeesTriggerfa7d57bd",
                   "-",
                   {
                     "Ref": "env"
@@ -72,7 +72,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-livechatroompoc-dev-191745-deployment",
-          "S3Key": "amplify-builds/dynamo903915baTrigger36ec3c2a-467461316567676d5553-build.zip"
+          "S3Key": "amplify-builds/AttendeesTriggerfa7d57bd-7242786f7a5835417136-build.zip"
         }
       }
     },
@@ -82,12 +82,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "dynamo903915baLambdaRole36ec3c2a",
+            "AttendeesLambdaRolefa7d57bd",
             {
               "Fn::Join": [
                 "",
                 [
-                  "dynamo903915baLambdaRole36ec3c2a",
+                  "AttendeesLambdaRolefa7d57bd",
                   "-",
                   {
                     "Ref": "env"
@@ -158,7 +158,7 @@
         }
       }
     },
-    "dynamo903915baTriggerPolicy": {
+    "AttendeesTriggerPolicy": {
       "DependsOn": [
         "LambdaExecutionRole"
       ],
@@ -183,7 +183,7 @@
               ],
               "Resource": [
                 {
-                  "Ref": "storagedynamo903915baStreamArn"
+                  "Ref": "storageAttendeesStreamArn"
                 }
               ]
             }
@@ -191,16 +191,16 @@
         }
       }
     },
-    "dynamo903915baTrigger": {
+    "AttendeesTrigger": {
       "Type": "AWS::Lambda::EventSourceMapping",
       "DependsOn": [
-        "dynamo903915baTriggerPolicy"
+        "AttendeesTriggerPolicy"
       ],
       "Properties": {
         "BatchSize": 100,
         "Enabled": true,
         "EventSourceArn": {
-          "Ref": "storagedynamo903915baStreamArn"
+          "Ref": "storageAttendeesStreamArn"
         },
         "FunctionName": {
           "Fn::GetAtt": [

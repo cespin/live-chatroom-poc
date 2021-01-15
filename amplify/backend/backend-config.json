@@ -44,14 +44,19 @@
       "providerPlugin": "awscloudformation",
       "build": true
     },
-    "dynamo903915baTrigger36ec3c2a": {
+    "meeting": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "MeetingsTrigger3c4610c4": {
       "service": "Lambda",
       "providerPlugin": "awscloudformation",
       "build": true,
       "dependsOn": [
         {
           "category": "storage",
-          "resourceName": "dynamo903915ba",
+          "resourceName": "Meetings",
           "attributes": [
             "Name",
             "Arn",
@@ -60,10 +65,21 @@
         }
       ]
     },
-    "meeting": {
-      "build": true,
+    "AttendeesTriggerfa7d57bd": {
+      "service": "Lambda",
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "Attendees",
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ]
+        }
+      ]
     }
   },
   "storage": {
@@ -82,7 +98,11 @@
         }
       ]
     },
-    "dynamo903915ba": {
+    "Meetings": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation"
+    },
+    "Attendees": {
       "service": "DynamoDB",
       "providerPlugin": "awscloudformation"
     }
