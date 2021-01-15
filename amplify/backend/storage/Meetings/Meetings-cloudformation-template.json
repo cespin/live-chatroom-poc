@@ -103,8 +103,11 @@
                         }
                     } 
                   
-                ]
-                
+                ],
+                "TimeToLiveSpecification": {
+                    "AttributeName" : "TTL",
+                    "Enabled" : true
+                }
             }
         }
     },
