@@ -1,3 +1,17 @@
 {
-  "lambdaLayers": []
+  "lambdaLayers": [],
+  "permissions": {
+    "storage": {
+      "Meetings": [
+        "create",
+        "read",
+        "update"
+      ],
+      "Attendees": [
+        "create",
+        "read",
+        "update"
+      ]
+    }
+  }
 }

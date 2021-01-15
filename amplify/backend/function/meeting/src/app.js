@@ -1,4 +1,11 @@
-/*
+/* Amplify Params - DO NOT EDIT
+	ENV
+	REGION
+	STORAGE_ATTENDEES_ARN
+	STORAGE_ATTENDEES_NAME
+	STORAGE_MEETINGS_ARN
+	STORAGE_MEETINGS_NAME
+Amplify Params - DO NOT EDIT *//*
 Copyright 2017 - 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
     http://aws.amazon.com/apache2.0/
@@ -7,82 +14,231 @@ See the License for the specific language governing permissions and limitations 
 */
 
 
-
-
-var express = require('express')
-var bodyParser = require('body-parser')
-var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+const express = require('express')
+const bodyParser = require('body-parser')
+const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+const AWS = require('aws-sdk');
+const ddb = new AWS.DynamoDB({
+    region: process.env.REGION,
+    apiVersion: '2012-08-10',
+    maxRetries: 3,
+    httpOptions: {
+        timeout: 5000
+    }
+});
+const chime = new AWS.Chime({ region: 'us-east-1' }); // Must be in us-east-1
+chime.endpoint = new AWS.Endpoint('https://service.chime.aws.amazon.com/console');
+const {STORAGE_MEETINGS_NAME, STORAGE_ATTENDEES_NAME} = process.env;
 
 // declare a new express app
-var app = express()
+const app = express()
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
 // Enable CORS for all methods
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "*")
-  next()
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Headers', '*')
+    next()
 });
 
+const simplifyTitle = title => {
+    // Strip out most symbolic characters and whitespace and make case insensitive,
+    // but preserve any Unicode characters outside of the ASCII range.
+    return (title || '').replace(/[\s()!@#$%^&*`~_=+{}|\\;:'",.<>/?\[\]-]+/gu, '').toLowerCase() || null;
+};
+
+const getMeeting = async (meetingTitle) => {
+    const filter = {
+        TableName: STORAGE_MEETINGS_NAME,
+        Key: {
+            'Title': {
+                S: meetingTitle
+            },
+        },
+    };
+
+    console.info("getMeeting > filter:", JSON.stringify(filter, null, 2));
+
+    const result = await ddb.getItem(filter).promise();
+
+    console.info("getMeeting > result:", JSON.stringify(result, null, 2));
+
+    if (!result.Item) {
+        return null;
+    }
+    const meetingData = JSON.parse(result.Item.Data.S);
+    meetingData.PlaybackURL = result.Item.PlaybackURL.S;
+    try {
+        await chime.getMeeting({
+            MeetingId: meetingData.Meeting.MeetingId
+        }).promise();
+    } catch (err) {
+        console.info("getMeeting > try/catch:", JSON.stringify(err, null, 2));
+        return null;
+    }
+    return meetingData;
+};
+
+const oneDayFromNow = () => Math.floor(Date.now() / 1000) + 60 * 60 * 24;
+
+const putMeeting = async(title, playbackURL, meetingInfo) => {
+    await ddb.putItem({
+        TableName: STORAGE_MEETINGS_NAME,
+        Item: {
+            'Title': { S: title },
+            'PlaybackURL': { S: playbackURL },
+            'Data': { S: JSON.stringify(meetingInfo) },
+            'TTL': {
+                N: '' + oneDayFromNow()
+            }
+        }
+    }).promise();
+};
+
+const putAttendee = async(title, attendeeId, name) => {
+    await ddb.putItem({
+        TableName: STORAGE_ATTENDEES_NAME,
+        Item: {
+            'AttendeeId': {
+                S: `${title}/${attendeeId}`
+            },
+            'Name': { S: name },
+            'TTL': {
+                N: '' + oneDayFromNow()
+            }
+        }
+    }).promise();
+};
+
+const uuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+});
+
+app.post('/join', async (req, res) => {
+    console.log("join req:", JSON.stringify(req, null, 2));
+    let payload;
+
+    try {
+        payload = JSON.parse(req.body);
+    } catch (err) {
+        console.log("join req > parse payload:", JSON.stringify(err, null, 2));
+        res.status(500).send(JSON.stringify(err));
+        return Promise.resolve();
+    }
+
+    if (!payload || !payload.title || !payload.name) {
+        console.log("join > missing required fields: Must provide title and name");
+        res.status(400).send("Must provide title and name");
+        return Promise.resolve();
+    }
+
+    if (payload.role === 'host' && !payload.playbackURL) {
+        console.log("join > missing required field: Must provide playbackURL");
+        res.status(400).send("Must provide playbackURL");
+        return Promise.resolve();
+    }
+
+    const title = simplifyTitle(payload.title);
+    const name = payload.name;
+    const region = payload.region || 'us-east-1';
+    let meetingInfo = await getMeeting(title);
+
+    // If meeting does not exist and role equal to "host" then create meeting room
+    if (!meetingInfo && payload.role === 'host') {
+        const request = {
+            ClientRequestToken: uuid(),
+            MediaRegion: region
+        };
+        console.info('join req > Creating new meeting: ' + JSON.stringify(request, null, 2));
+        meetingInfo = await chime.createMeeting(request).promise();
+        meetingInfo.PlaybackURL = payload.playbackURL;
+        await putMeeting(title, payload.playbackURL, meetingInfo);
+    }
+
+    console.info("join req > meetingInfo:", JSON.stringify(meetingInfo, null, 2));
+
+    console.info('join req > Adding new attendee');
+    const attendeeInfo = (await chime.createAttendee({
+        MeetingId: meetingInfo.Meeting.MeetingId,
+        ExternalUserId: uuid(),
+    }).promise());
+
+    console.info("join req > attendeeInfo:", JSON.stringify(attendeeInfo, null, 2));
+
+    await putAttendee(title, attendeeInfo.Attendee.AttendeeId, name);
+
+    const joinInfo = {
+        JoinInfo: {
+            Title: title,
+            PlaybackURL: meetingInfo.PlaybackURL,
+            Meeting: meetingInfo.Meeting,
+            Attendee: attendeeInfo.Attendee
+        },
+    };
+
+    console.info("join req > joinInfo:", JSON.stringify(joinInfo, null, 2));
+    res.json(joinInfo)
+});
 
 /**********************
  * Example get method *
  **********************/
 
-app.get('/', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
+app.get('/', function (req, res) {
+    // Add your code here
+    res.json({success: 'get call succeed!', url: req.url});
 });
 
-app.get('//*', function(req, res) {
-  // Add your code here
-  res.json({success: 'get call succeed!', url: req.url});
-});
-
-/****************************
-* Example post method *
-****************************/
-
-app.post('/', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
-});
-
-app.post('//*', function(req, res) {
-  // Add your code here
-  res.json({success: 'post call succeed!', url: req.url, body: req.body})
+app.get('//*', function (req, res) {
+    // Add your code here
+    res.json({success: 'get call succeed!', url: req.url});
 });
 
 /****************************
-* Example put method *
-****************************/
+ * Example post method *
+ ****************************/
 
-app.put('/', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+app.post('/', function (req, res) {
+    // Add your code here
+    res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
-app.put('//*', function(req, res) {
-  // Add your code here
-  res.json({success: 'put call succeed!', url: req.url, body: req.body})
+app.post('//*', function (req, res) {
+    // Add your code here
+    res.json({success: 'post call succeed!', url: req.url, body: req.body})
 });
 
 /****************************
-* Example delete method *
-****************************/
+ * Example put method *
+ ****************************/
 
-app.delete('/', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+app.put('/', function (req, res) {
+    // Add your code here
+    res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-app.delete('//*', function(req, res) {
-  // Add your code here
-  res.json({success: 'delete call succeed!', url: req.url});
+app.put('//*', function (req, res) {
+    // Add your code here
+    res.json({success: 'put call succeed!', url: req.url, body: req.body})
 });
 
-app.listen(3000, function() {
+/****************************
+ * Example delete method *
+ ****************************/
+
+app.delete('/', function (req, res) {
+    // Add your code here
+    res.json({success: 'delete call succeed!', url: req.url});
+});
+
+app.delete('//*', function (req, res) {
+    // Add your code here
+    res.json({success: 'delete call succeed!', url: req.url});
+});
+
+app.listen(3000, function () {
     console.log("App started")
 });
 

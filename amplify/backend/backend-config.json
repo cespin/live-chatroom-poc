@@ -47,7 +47,25 @@
     "meeting": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "Meetings",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "Attendees",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ]
     },
     "MeetingsTrigger3c4610c4": {
       "service": "Lambda",
