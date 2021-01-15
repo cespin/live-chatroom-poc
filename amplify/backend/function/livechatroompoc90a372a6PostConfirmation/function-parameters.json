@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "add-to-group"
+  ],
+  "parentResource": "livechatroompoc90a372a6",
+  "functionName": "livechatroompoc90a372a6PostConfirmation",
+  "resourceName": "livechatroompoc90a372a6PostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/home/carlos/.nvm/versions/node/v12.20.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "roleName": "livechatroompoc90a372a6PostConfirmation",
+  "skipEdit": true,
+  "GROUP": "Users",
+  "enableCors": false
+}
