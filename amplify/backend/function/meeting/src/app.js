@@ -116,6 +116,51 @@ const uuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, funct
     return v.toString(16);
 });
 
+const endMeeting = async(title) => {
+    const meetingInfo = await getMeeting(title);
+
+    try {
+        await chime.deleteMeeting({
+            MeetingId: meetingInfo.Meeting.MeetingId,
+        }).promise();
+    } catch (err) {
+        console.info("endMeeting > try/catch:", JSON.stringify(err, null, 2));
+        // return null;
+    }
+
+    const params = {
+        TableName: STORAGE_MEETINGS_NAME,
+        Key: {
+            'Title': {
+                S: title
+            },
+        },
+    };
+
+    console.info("deleteMeeting > params:", JSON.stringify(params, null, 2));
+
+    const result = await ddb.delete(params).promise();
+
+    console.info("deleteMeeting > result:", JSON.stringify(result, null, 2));
+
+    return result;
+};
+
+const getAttendee = async(title, attendeeId) => {
+    const result = await ddb.getItem({
+        TableName: STORAGE_ATTENDEES_NAME,
+        Key: {
+            'AttendeeId': {
+                S: `${title}/${attendeeId}`
+            }
+        }
+    }).promise();
+    if (!result.Item) {
+        return 'Unknown';
+    }
+    return result.Item.Name.S;
+};
+
 app.post('/join', async (req, res) => {
     let payload;
 
@@ -179,6 +224,41 @@ app.post('/join', async (req, res) => {
 
     console.info("join req > joinInfo:", JSON.stringify(joinInfo, null, 2));
     res.json(joinInfo)
+});
+
+app.get('/attendee', async (req, res) => {
+
+    if (!req.query.title || !req.query.attendeeId) {
+        console.log("attendee req > missing required fields: Must provide title and attendeeId");
+        res.status(400).send("Must provide title and attendeeId");
+        return Promise.resolve();
+    }
+
+    const title = simplifyTitle(req.query.title);
+    const attendeeId = req.query.attendeeId;
+    const attendeeInfo = {
+        AttendeeInfo: {
+            AttendeeId: attendeeId,
+            Name: await getAttendee(title, attendeeId)
+        }
+    };
+
+    console.info("attendee event > response: %j", res);
+    res.json(attendeeInfo);
+});
+
+app.get('/end', async (req, res) => {
+    console.log("end event:", JSON.stringify(req, null, 2));
+
+    if (!req.query.title) {
+        console.log("end event > missing required fields: Must provide title");
+        res.status(400).send("Must provide title");
+        return Promise.resolve();
+    }
+
+    const title = simplifyTitle(req.query.title);
+    console.info("end event > res:", JSON.stringify(res, null, 2));
+    res.json(endMeeting(title));
 });
 
 /**********************

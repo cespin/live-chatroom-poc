@@ -193,14 +193,20 @@ export default class ChimeSdkWrapper {
                             );
                         }
                         if (this.title && attendeeId && !this.roster[attendeeId].name) {
-                            const response = await fetch(
-                                `${config.CHIME_ROOM_API}/attendee?title=${encodeURIComponent(
-                                    this.title
-                                )}&attendeeId=${encodeURIComponent(attendeeId)}`
-                            );
-                            const json = await response.json();
-                            if (json.AttendeeInfo && this.roster[attendeeId]) {
-                                this.roster[attendeeId].name = json.AttendeeInfo.Name || '';
+                            const response = await API.get('meeting', '/attendee', {
+                                response: true,
+                                queryStringParameters: {
+                                    title: encodeURIComponent(this.title),
+                                    attendeeId: encodeURIComponent(attendeeId)
+                                }
+                            }).catch(error => {
+                                console.log(JSON.stringify(error));
+                                throw new Error(
+                                    JSON.stringify(error)
+                                );
+                            });
+                            if (response.AttendeeInfo && this.roster[attendeeId]) {
+                                this.roster[attendeeId].name = response.AttendeeInfo.Name || '';
                                 shouldPublishImmediately = true;
                             }
                         }
@@ -330,12 +336,16 @@ export default class ChimeSdkWrapper {
 
         try {
             if (end && this.title) {
-                await fetch(
-                    `${config.CHIME_ROOM_API}/end?title=${encodeURIComponent(this.title)}`,
-                    {
-                        method: 'POST'
+                await API.post('meeting', '/end', {
+                    queryStringParameters: {
+                        title: encodeURIComponent(this.title)
                     }
-                );
+                }).catch(error => {
+                    console.log(JSON.stringify(error));
+                    throw new Error(
+                        JSON.stringify(error)
+                    );
+                });
             }
         } catch (error) {
             this.logError(error);

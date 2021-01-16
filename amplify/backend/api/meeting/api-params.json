@@ -26,6 +26,32 @@
                     ]
                 }
             }
+        },
+        {
+            "name": "/attendee",
+            "lambdaFunction": "meeting",
+            "privacy": {
+                "userPoolGroups": {
+                    "Users": [
+                        "/GET"
+                    ],
+                    "Hosts": [
+                        "/GET"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "/end",
+            "lambdaFunction": "meeting",
+            "privacy": {
+                "userPoolGroups": {
+                    "Hosts": [
+                        "/POST",
+                        "/PATCH"
+                    ]
+                }
+            }
         }
     ],
     "resourceName": "meeting",
@@ -72,6 +98,6 @@
             ]
         }
     ],
-    "uuid": "e9bcd7a0",
+    "uuid": "0b1b33ae",
     "authResourceName": "livechatroompoc90a372a6"
 }
