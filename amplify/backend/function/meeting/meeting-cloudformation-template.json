@@ -97,7 +97,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-livechatroompoc-dev-191745-deployment",
-          "S3Key": "amplify-builds/meeting-755a2b68335938397564-build.zip"
+          "S3Key": "amplify-builds/meeting-66525942686576767835-build.zip"
         }
       }
     },

@@ -90,7 +90,7 @@
                               ]
                             },
                               "/POST",
-                            "//*"
+                            "/*"
                           ]
                         ]
                       },
@@ -121,7 +121,7 @@
                               ]
                             },
                               "/POST",
-                            "/"
+                            ""
                           ]
                         ]
                       }
@@ -156,7 +156,7 @@
                               ]
                             },
                               "/GET",
-                            "//*"
+                            "/*"
                           ]
                         ]
                       },
@@ -187,7 +187,7 @@
                               ]
                             },
                               "/GET",
-                            "/"
+                            ""
                           ]
                         ]
                       }
@@ -222,7 +222,7 @@
                               ]
                             },
                               "/PUT",
-                            "//*"
+                            "/*"
                           ]
                         ]
                       },
@@ -253,7 +253,7 @@
                               ]
                             },
                               "/PUT",
-                            "/"
+                            ""
                           ]
                         ]
                       }
@@ -288,7 +288,7 @@
                               ]
                             },
                               "/PATCH",
-                            "//*"
+                            "/*"
                           ]
                         ]
                       },
@@ -319,7 +319,7 @@
                               ]
                             },
                               "/PATCH",
-                            "/"
+                            ""
                           ]
                         ]
                       }
@@ -384,7 +384,7 @@
             ],
             "paths": {
               
-              "/": {
+              "/join": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -489,7 +489,7 @@
                   }
                 }
               },
-              "//{proxy+}": {
+              "/join/{proxy+}": {
                 "options": {
                   "consumes": [
                     "application/json"
@@ -673,7 +673,7 @@
         
         
         
-      "DeploymentAPIGWmeeting": {
+      "DeploymentAPIGWmeeting5a5fd198": {
         "Type": "AWS::ApiGateway::Deployment",
         "Properties": {
           "Description": "The Development stage deployment of your API.",

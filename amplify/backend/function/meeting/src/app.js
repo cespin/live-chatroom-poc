@@ -117,7 +117,6 @@ const uuid = () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, funct
 });
 
 app.post('/join', async (req, res) => {
-    console.log("join req:", JSON.stringify(req, null, 2));
     let payload;
 
     try {

@@ -1,7 +1,7 @@
 {
     "paths": [
         {
-            "name": "/",
+            "name": "/join",
             "lambdaFunction": "meeting",
             "privacy": {
                 "private": true,
@@ -11,8 +11,7 @@
                     "/PUT",
                     "/PATCH"
                 ]
-            },
-            "policyResourceName": "/"
+            }
         }
     ],
     "resourceName": "meeting",
@@ -37,5 +36,6 @@
                 "Arn"
             ]
         }
-    ]
+    ],
+    "uuid": "5a5fd198"
 }
