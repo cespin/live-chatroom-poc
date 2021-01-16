@@ -34,7 +34,7 @@ class Chat extends Component {
   async initChatConnection() {
     const { Meeting, Attendee } = this.props.joinInfo;
     const messagingUrl = `${config.CHAT_WEBSOCKET}?MeetingId=${Meeting.MeetingId}&AttendeeId=${Attendee.AttendeeId}&JoinToken=${Attendee.JoinToken}`
-    const connection = new ReconnectingPromisedWebSocket(
+    /*const connection = new ReconnectingPromisedWebSocket(
       messagingUrl,
       [],
       'arraybuffer',
@@ -63,7 +63,7 @@ class Chat extends Component {
 
     this.setState({ connection });
 
-    this.chatRef.current.focus();
+    this.chatRef.current.focus();*/
   }
 
   componentDidUpdate() {
