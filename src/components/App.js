@@ -19,6 +19,11 @@ Amplify.configure(awsconfig);
 function App() {
     const chime = new ChimeSdkWrapper();
     const baseHref = config.BASE_HREF;
+    Auth.currentAuthenticatedUser({
+        bypassCache: true
+    }).then(user => {
+        console.log(user);
+    });
 
     return (
         <div className="App full-width full-height">
