@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "livechatroompoc90a372a6": {}
+        "livechatroompoc90a372a6": {},
+        "userPoolGroups": {}
       },
       "function": {
         "livechatroompoc90a372a6PostConfirmation": {

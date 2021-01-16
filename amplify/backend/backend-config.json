@@ -45,6 +45,27 @@
             "Name",
             "Arn"
           ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "livechatroompoc90a372a6",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "UsersGroupRole"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "userPoolGroups",
+          "attributes": [
+            "HostsGroupRole"
+          ]
         }
       ]
     },

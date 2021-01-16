@@ -10,7 +10,21 @@
                     "/GET",
                     "/PUT",
                     "/PATCH"
-                ]
+                ],
+                "userPoolGroups": {
+                    "Users": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH"
+                    ],
+                    "Hosts": [
+                        "/POST",
+                        "/GET",
+                        "/PUT",
+                        "/PATCH"
+                    ]
+                }
             }
         }
     ],
@@ -35,7 +49,29 @@
                 "Name",
                 "Arn"
             ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "livechatroompoc90a372a6",
+            "attributes": [
+                "UserPoolId"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "UsersGroupRole"
+            ]
+        },
+        {
+            "category": "auth",
+            "resourceName": "userPoolGroups",
+            "attributes": [
+                "HostsGroupRole"
+            ]
         }
     ],
-    "uuid": "5a5fd198"
+    "uuid": "e9bcd7a0",
+    "authResourceName": "livechatroompoc90a372a6"
 }
