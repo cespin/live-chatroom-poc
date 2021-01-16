@@ -120,7 +120,7 @@ app.post('/join', async (req, res) => {
     let payload;
 
     try {
-        payload = JSON.parse(req.body);
+        payload = req.body;
     } catch (err) {
         console.log("join req > parse payload:", JSON.stringify(err, null, 2));
         res.status(500).send(JSON.stringify(err));
