@@ -1,18 +1,13 @@
 import {
     ConsoleLogger,
     DefaultDeviceController,
-    DefaultDOMWebSocketFactory,
     DefaultMeetingSession,
     DefaultModality,
-    DefaultPromisedWebSocketFactory,
-    FullJitterBackoff,
     LogLevel,
-    MeetingSessionConfiguration,
-    ReconnectingPromisedWebSocket
+    MeetingSessionConfiguration
 } from 'amazon-chime-sdk-js';
 
 import throttle from 'lodash/throttle';
-import * as config from '../../config';
 import {API, Auth} from 'aws-amplify';
 import {createUser, createConversation} from '../../graphql/mutations'
 import {getUser} from '../../graphql/queries'
@@ -25,7 +20,6 @@ const simplifyTitle = title => {
 
 export default class ChimeSdkWrapper {
 
-    static WEB_SOCKET_TIMEOUT_MS = 10000;
     static ROSTER_THROTTLE_MS = 400;
 
     constructor() {
@@ -303,60 +297,6 @@ export default class ChimeSdkWrapper {
         this.audioVideo.start();
     }
 
-    async joinRoomMessaging() {
-        if (!this.configuration) {
-            this.logError(new Error('configuration does not exist'));
-            return;
-        }
-
-        const messagingUrl = `${config.CHAT_WEBSOCKET}?MeetingId=${this.configuration.meetingId}&AttendeeId=${this.configuration.credentials.attendeeId}&JoinToken=${this.configuration.credentials.joinToken}`;
-        this.messagingSocket = new ReconnectingPromisedWebSocket(
-            messagingUrl,
-            [],
-            'arraybuffer',
-            new DefaultPromisedWebSocketFactory(new DefaultDOMWebSocketFactory()),
-            new FullJitterBackoff(1000, 0, 10000)
-        );
-
-        await this.messagingSocket.open(this.WEB_SOCKET_TIMEOUT_MS);
-
-        this.messagingSocket.addEventListener('message', (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                const {attendeeId} = data.payload;
-
-                let name;
-                if (this.roster[attendeeId]) {
-                    name = this.roster[attendeeId].name;
-                }
-
-                this.publishMessageUpdate({
-                    type: data.type,
-                    payload: data.payload,
-                    timestampMs: Date.now(),
-                    name
-                });
-            } catch (error) {
-                this.logError(error);
-            }
-        });
-    }
-
-    sendMessage(type, payload) {
-        if (!this.messagingSocket) {
-            return;
-        }
-        const message = {
-            message: 'sendmessage',
-            data: JSON.stringify({type, payload})
-        };
-        try {
-            this.messagingSocket.send(JSON.stringify(message));
-        } catch (error) {
-            this.logError(error);
-        }
-    }
-
     async leaveRoom(end) {
         try {
             this.audioVideo.stop();
@@ -543,13 +483,6 @@ export default class ChimeSdkWrapper {
         const index = this.messageUpdateCallbacks.indexOf(callback);
         if (index !== -1) {
             this.messageUpdateCallbacks.splice(index, 1);
-        }
-    }
-
-    publishMessageUpdate(message) {
-        for (let i = 0; i < this.messageUpdateCallbacks.length; i += 1) {
-            const callback = this.messageUpdateCallbacks[i];
-            callback(message);
         }
     }
 }
