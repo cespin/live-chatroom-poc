@@ -58,7 +58,7 @@ class Meeting extends Component {
         this.title = ssData.title;
         this.role = ssData.role;
 
-        if (!ssData.joinInfo && this.role === 'host') {
+        if (!ssData.joinInfo) {
           this.joinInfo = await this.props.chime.createRoom(this.role, this.username, this.title, ssData.playbackURL);
           const data = {
             ...ssData,
@@ -66,24 +66,11 @@ class Meeting extends Component {
           }
           sessionStorage.setItem(this.ssName, JSON.stringify(data));
           this.playbackURL = this.joinInfo.PlaybackURL;
-        } else if (!ssData.joinInfo) {
+        } else {
           // Browser refresh
           this.joinInfo = ssData.joinInfo;
-
-
-
-          //TODO Remove PlaybackURL
-          // Playback URL is not needed, remove
-
-
-          
-
-
-          this.playbackURL = "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8";
+          this.playbackURL = ssData.joinInfo.PlaybackURL;
           await this.props.chime.reInitializeMeetingSession(this.joinInfo, this.username);
-        } else {
-          alert('That meeting doesn not exist');
-          this.props.history.push(`${this.baseHref}/`);
         }
 
         this.setState({ meetingStatus: 'Success' });

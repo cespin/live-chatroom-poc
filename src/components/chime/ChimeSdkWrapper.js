@@ -86,7 +86,7 @@ export default class ChimeSdkWrapper {
         this.name = name;
         this.region = region;
 
-        await this.initializeMeetingSession(this.configuration, true);
+        await this.initializeMeetingSession(this.configuration, role === 'host');
 
         return JoinInfo;
     }
