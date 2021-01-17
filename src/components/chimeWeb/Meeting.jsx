@@ -69,7 +69,17 @@ class Meeting extends Component {
         } else if (!ssData.joinInfo) {
           // Browser refresh
           this.joinInfo = ssData.joinInfo;
-          this.playbackURL = ssData.joinInfo.PlaybackURL;
+
+
+
+          //TODO Remove PlaybackURL
+          // Playback URL is not needed, remove
+
+
+          
+
+
+          this.playbackURL = "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8";
           await this.props.chime.reInitializeMeetingSession(this.joinInfo, this.username);
         } else {
           alert('That meeting doesn not exist');
