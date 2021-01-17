@@ -2,54 +2,31 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
-export declare class Message {
-  readonly author?: User;
-  readonly content: string;
-  readonly conversationId: string;
-  readonly createdAt?: string;
-  readonly id: string;
-  readonly isSent?: boolean;
-  readonly recipient?: User;
-  readonly sender?: string;
-  constructor(init: ModelInit<Message>);
-}
+
 
 export declare class User {
-  readonly cognitoId: string;
-  readonly conversations?: UserConverstationsConnection;
   readonly id: string;
-  readonly messages?: MessageConnection;
+  readonly cognitoId: string;
   readonly username: string;
   readonly registered?: boolean;
   constructor(init: ModelInit<User>);
-}
-
-export declare class UserConverstationsConnection {
-  readonly nextToken?: string;
-  readonly userConversations?: (UserConversations | null)[];
-  constructor(init: ModelInit<UserConverstationsConnection>);
-}
-
-export declare class UserConversations {
-  readonly associated?: (UserConversations | null)[];
-  readonly conversation?: Conversation;
-  readonly conversationId: string;
-  readonly user?: User;
-  readonly userId: string;
-  constructor(init: ModelInit<UserConversations>);
+  static copyOf(source: User, mutator: (draft: MutableModel<User>) => MutableModel<User> | void): User;
 }
 
 export declare class Conversation {
-  readonly createdAt?: string;
   readonly id: string;
-  readonly messages?: MessageConnection;
+  readonly createdAt?: string;
   readonly name: string;
   constructor(init: ModelInit<Conversation>);
+  static copyOf(source: Conversation, mutator: (draft: MutableModel<Conversation>) => MutableModel<Conversation> | void): Conversation;
 }
 
-export declare class MessageConnection {
-  readonly messages?: (Message | null)[];
-  readonly nextToken?: string;
-  constructor(init: ModelInit<MessageConnection>);
+export declare class Message {
+  readonly id: string;
+  readonly content: string;
+  readonly createdAt?: string;
+  readonly isSent?: boolean;
+  readonly sender?: string;
+  constructor(init: ModelInit<Message>);
+  static copyOf(source: Message, mutator: (draft: MutableModel<Message>) => MutableModel<Message> | void): Message;
 }
-

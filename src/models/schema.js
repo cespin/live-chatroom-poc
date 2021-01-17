@@ -1,40 +1,8 @@
 export const schema = {
-    "models": {},
-    "enums": {},
-    "nonModels": {
-        "Message": {
-            "name": "Message",
+    "models": {
+        "User": {
+            "name": "User",
             "fields": {
-                "author": {
-                    "name": "author",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "content": {
-                    "name": "content",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "conversationId": {
-                    "name": "conversationId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "id": {
                     "name": "id",
                     "isArray": false,
@@ -42,64 +10,11 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "isSent": {
-                    "name": "isSent",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "recipient": {
-                    "name": "recipient",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "sender": {
-                    "name": "sender",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                }
-            }
-        },
-        "User": {
-            "name": "User",
-            "fields": {
                 "cognitoId": {
                     "name": "cognitoId",
                     "isArray": false,
                     "type": "ID",
                     "isRequired": true,
-                    "attributes": []
-                },
-                "conversations": {
-                    "name": "conversations",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "UserConverstationsConnection"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "messages": {
-                    "name": "messages",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "MessageConnection"
-                    },
-                    "isRequired": false,
                     "attributes": []
                 },
                 "username": {
@@ -116,87 +31,19 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 }
-            }
-        },
-        "UserConverstationsConnection": {
-            "name": "UserConverstationsConnection",
-            "fields": {
-                "nextToken": {
-                    "name": "nextToken",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "userConversations": {
-                    "name": "userConversations",
-                    "isArray": true,
-                    "type": {
-                        "nonModel": "UserConversations"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+            },
+            "syncable": true,
+            "pluralName": "Users",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
                 }
-            }
-        },
-        "UserConversations": {
-            "name": "UserConversations",
-            "fields": {
-                "associated": {
-                    "name": "associated",
-                    "isArray": true,
-                    "type": {
-                        "nonModel": "UserConversations"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "conversation": {
-                    "name": "conversation",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "Conversation"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "conversationId": {
-                    "name": "conversationId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "user": {
-                    "name": "user",
-                    "isArray": false,
-                    "type": {
-                        "nonModel": "User"
-                    },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "userId": {
-                    "name": "userId",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                }
-            }
+            ]
         },
         "Conversation": {
             "name": "Conversation",
             "fields": {
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "id": {
                     "name": "id",
                     "isArray": false,
@@ -204,12 +51,10 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "messages": {
-                    "name": "messages",
+                "createdAt": {
+                    "name": "createdAt",
                     "isArray": false,
-                    "type": {
-                        "nonModel": "MessageConnection"
-                    },
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -220,30 +65,66 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 }
-            }
+            },
+            "syncable": true,
+            "pluralName": "Conversations",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                }
+            ]
         },
-        "MessageConnection": {
-            "name": "MessageConnection",
+        "Message": {
+            "name": "Message",
             "fields": {
-                "messages": {
-                    "name": "messages",
-                    "isArray": true,
-                    "type": {
-                        "nonModel": "Message"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
                 },
-                "nextToken": {
-                    "name": "nextToken",
+                "content": {
+                    "name": "content",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "isSent": {
+                    "name": "isSent",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sender": {
+                    "name": "sender",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 }
-            }
+            },
+            "syncable": true,
+            "pluralName": "Messages",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                }
+            ]
         }
     },
-    "version": "bc1653f128753c8eca7796c607633881"
+    "enums": {},
+    "nonModels": {},
+    "version": "8b9997e3212d26fbdc090ea7ec5ee7ad"
 };

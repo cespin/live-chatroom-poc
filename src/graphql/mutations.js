@@ -1,144 +1,525 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createConversation = /* GraphQL */ `
-  mutation CreateConversation($createdAt: String, $id: ID!, $name: String!) {
-    createConversation(createdAt: $createdAt, id: $id, name: $name) {
-      createdAt
-      id
-      messages {
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      cognitoId
+      conversations {
+        createdAt
+        id
         messages {
           content
-          conversationId
           createdAt
           id
           isSent
           sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
         }
-        nextToken
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      id
+      username
+      registered
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      cognitoId
+      conversations {
+        createdAt
+        id
+        messages {
+          content
+          createdAt
+          id
+          isSent
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      id
+      username
+      registered
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      cognitoId
+      conversations {
+        createdAt
+        id
+        messages {
+          content
+          createdAt
+          id
+          isSent
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      id
+      username
+      registered
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createConversation = /* GraphQL */ `
+  mutation CreateConversation(
+    $input: CreateConversationInput!
+    $condition: ModelConversationConditionInput
+  ) {
+    createConversation(input: $input, condition: $condition) {
+      createdAt
+      id
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        content
+        conversation {
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        createdAt
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        sender
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
       }
       name
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
+    }
+  }
+`;
+export const updateConversation = /* GraphQL */ `
+  mutation UpdateConversation(
+    $input: UpdateConversationInput!
+    $condition: ModelConversationConditionInput
+  ) {
+    updateConversation(input: $input, condition: $condition) {
+      createdAt
+      id
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        content
+        conversation {
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        createdAt
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        sender
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
+    }
+  }
+`;
+export const deleteConversation = /* GraphQL */ `
+  mutation DeleteConversation(
+    $input: DeleteConversationInput!
+    $condition: ModelConversationConditionInput
+  ) {
+    deleteConversation(input: $input, condition: $condition) {
+      createdAt
+      id
+      messages {
+        author {
+          cognitoId
+          id
+          username
+          registered
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        content
+        conversation {
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        createdAt
+        id
+        isSent
+        recipient {
+          cognitoId
+          id
+          username
+          registered
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+        }
+        sender
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      name
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
     }
   }
 `;
 export const createMessage = /* GraphQL */ `
   mutation CreateMessage(
-    $content: String
-    $conversationId: ID!
-    $createdAt: String!
-    $id: ID!
+    $input: CreateMessageInput!
+    $condition: ModelMessageConditionInput
   ) {
-    createMessage(
-      content: $content
-      conversationId: $conversationId
-      createdAt: $createdAt
-      id: $id
-    ) {
+    createMessage(input: $input, condition: $condition) {
       author {
         cognitoId
         conversations {
-          nextToken
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
         }
         id
-        messages {
-          nextToken
-        }
         username
         registered
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
       content
-      conversationId
+      conversation {
+        createdAt
+        id
+        messages {
+          content
+          createdAt
+          id
+          isSent
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
       createdAt
       id
       isSent
       recipient {
         cognitoId
         conversations {
-          nextToken
-        }
-        id
-        messages {
-          nextToken
-        }
-        username
-        registered
-      }
-      sender
-    }
-  }
-`;
-export const createUser = /* GraphQL */ `
-  mutation CreateUser($username: String!) {
-    createUser(username: $username) {
-      cognitoId
-      conversations {
-        nextToken
-        userConversations {
-          conversationId
-          userId
-        }
-      }
-      id
-      messages {
-        messages {
-          content
-          conversationId
-          createdAt
-          id
-          isSent
-          sender
-        }
-        nextToken
-      }
-      username
-      registered
-    }
-  }
-`;
-export const createUserConversations = /* GraphQL */ `
-  mutation CreateUserConversations($conversationId: ID!, $userId: ID!) {
-    createUserConversations(conversationId: $conversationId, userId: $userId) {
-      associated {
-        associated {
-          conversationId
-          userId
-        }
-        conversation {
           createdAt
           id
           name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
         }
-        conversationId
-        user {
-          cognitoId
-          id
-          username
-          registered
-        }
-        userId
+        id
+        username
+        registered
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
+      sender
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
+    }
+  }
+`;
+export const updateMessage = /* GraphQL */ `
+  mutation UpdateMessage(
+    $input: UpdateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    updateMessage(input: $input, condition: $condition) {
+      author {
+        cognitoId
+        conversations {
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        id
+        username
+        registered
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      content
       conversation {
         createdAt
         id
         messages {
-          nextToken
+          content
+          createdAt
+          id
+          isSent
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
         }
         name
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
       }
-      conversationId
-      user {
+      createdAt
+      id
+      isSent
+      recipient {
         cognitoId
         conversations {
-          nextToken
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
         }
         id
-        messages {
-          nextToken
-        }
         username
         registered
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
       }
-      userId
+      sender
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
+    }
+  }
+`;
+export const deleteMessage = /* GraphQL */ `
+  mutation DeleteMessage(
+    $input: DeleteMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    deleteMessage(input: $input, condition: $condition) {
+      author {
+        cognitoId
+        conversations {
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        id
+        username
+        registered
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      content
+      conversation {
+        createdAt
+        id
+        messages {
+          content
+          createdAt
+          id
+          isSent
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        name
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      createdAt
+      id
+      isSent
+      recipient {
+        cognitoId
+        conversations {
+          createdAt
+          id
+          name
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+        }
+        id
+        username
+        registered
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      sender
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
     }
   }
 `;
