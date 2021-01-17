@@ -15,24 +15,18 @@ export const syncUsers = /* GraphQL */ `
       lastSync: $lastSync
     ) {
       items {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       nextToken
       startedAt
@@ -42,35 +36,29 @@ export const syncUsers = /* GraphQL */ `
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
-      cognitoId
       conversations {
-        createdAt
-        id
-        messages {
-          content
+        items {
           createdAt
           id
-          isSent
-          sender
+          hostID
+          name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+        nextToken
+        startedAt
       }
       id
       username
-      registered
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -82,24 +70,18 @@ export const listUsers = /* GraphQL */ `
   ) {
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       nextToken
       startedAt
@@ -122,22 +104,27 @@ export const syncConversations = /* GraphQL */ `
       items {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       nextToken
       startedAt
@@ -149,53 +136,46 @@ export const getConversation = /* GraphQL */ `
     getConversation(id: $id) {
       createdAt
       id
-      messages {
-        author {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      hostID
+      host {
+        conversations {
+          nextToken
+          startedAt
         }
-        content
-        conversation {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        createdAt
         id
-        isSent
-        recipient {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        sender
+        username
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
+        owner
+      }
+      messages {
+        items {
+          authorID
+          content
+          conversationID
+          createdAt
+          id
+          isSent
+          recipientID
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       name
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -209,22 +189,27 @@ export const listConversations = /* GraphQL */ `
       items {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       nextToken
       startedAt
@@ -245,46 +230,50 @@ export const syncMessages = /* GraphQL */ `
       lastSync: $lastSync
     ) {
       items {
+        authorID
         author {
-          cognitoId
           id
           username
-          registered
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         content
+        conversationID
         conversation {
           createdAt
           id
+          hostID
           name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
         createdAt
         id
         isSent
+        recipientID
         recipient {
-          cognitoId
           id
           username
-          registered
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         sender
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       nextToken
       startedAt
@@ -294,75 +283,72 @@ export const syncMessages = /* GraphQL */ `
 export const getMessage = /* GraphQL */ `
   query GetMessage($id: ID!) {
     getMessage(id: $id) {
+      authorID
       author {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       content
+      conversationID
       conversation {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       createdAt
       id
       isSent
+      recipientID
       recipient {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       sender
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -374,46 +360,50 @@ export const listMessages = /* GraphQL */ `
   ) {
     listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        authorID
         author {
-          cognitoId
           id
           username
-          registered
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         content
+        conversationID
         conversation {
           createdAt
           id
+          hostID
           name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
         createdAt
         id
         isSent
+        recipientID
         recipient {
-          cognitoId
           id
           username
-          registered
           _version
           _deleted
           _lastChangedAt
           createdAt
           updatedAt
+          owner
         }
         sender
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       nextToken
       startedAt

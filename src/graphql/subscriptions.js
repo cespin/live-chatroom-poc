@@ -4,105 +4,87 @@
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
-      cognitoId
       conversations {
-        createdAt
-        id
-        messages {
-          content
+        items {
           createdAt
           id
-          isSent
-          sender
+          hostID
+          name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+        nextToken
+        startedAt
       }
       id
       username
-      registered
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
-      cognitoId
       conversations {
-        createdAt
-        id
-        messages {
-          content
+        items {
           createdAt
           id
-          isSent
-          sender
+          hostID
+          name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+        nextToken
+        startedAt
       }
       id
       username
-      registered
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
-      cognitoId
       conversations {
-        createdAt
-        id
-        messages {
-          content
+        items {
           createdAt
           id
-          isSent
-          sender
+          hostID
+          name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+        nextToken
+        startedAt
       }
       id
       username
-      registered
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -111,53 +93,46 @@ export const onCreateConversation = /* GraphQL */ `
     onCreateConversation {
       createdAt
       id
-      messages {
-        author {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      hostID
+      host {
+        conversations {
+          nextToken
+          startedAt
         }
-        content
-        conversation {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        createdAt
         id
-        isSent
-        recipient {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        sender
+        username
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
+        owner
+      }
+      messages {
+        items {
+          authorID
+          content
+          conversationID
+          createdAt
+          id
+          isSent
+          recipientID
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       name
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -166,53 +141,46 @@ export const onUpdateConversation = /* GraphQL */ `
     onUpdateConversation {
       createdAt
       id
-      messages {
-        author {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      hostID
+      host {
+        conversations {
+          nextToken
+          startedAt
         }
-        content
-        conversation {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        createdAt
         id
-        isSent
-        recipient {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        sender
+        username
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
+        owner
+      }
+      messages {
+        items {
+          authorID
+          content
+          conversationID
+          createdAt
+          id
+          isSent
+          recipientID
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       name
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -221,278 +189,262 @@ export const onDeleteConversation = /* GraphQL */ `
     onDeleteConversation {
       createdAt
       id
-      messages {
-        author {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      hostID
+      host {
+        conversations {
+          nextToken
+          startedAt
         }
-        content
-        conversation {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        createdAt
         id
-        isSent
-        recipient {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        sender
+        username
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
+        owner
+      }
+      messages {
+        items {
+          authorID
+          content
+          conversationID
+          createdAt
+          id
+          isSent
+          recipientID
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       name
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateMessage = /* GraphQL */ `
   subscription OnCreateMessage {
     onCreateMessage {
+      authorID
       author {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       content
+      conversationID
       conversation {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       createdAt
       id
       isSent
+      recipientID
       recipient {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       sender
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateMessage = /* GraphQL */ `
   subscription OnUpdateMessage {
     onUpdateMessage {
+      authorID
       author {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       content
+      conversationID
       conversation {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       createdAt
       id
       isSent
+      recipientID
       recipient {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       sender
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteMessage = /* GraphQL */ `
   subscription OnDeleteMessage {
     onDeleteMessage {
+      authorID
       author {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       content
+      conversationID
       conversation {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       createdAt
       id
       isSent
+      recipientID
       recipient {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       sender
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;

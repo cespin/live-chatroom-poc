@@ -7,35 +7,29 @@ export const createUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     createUser(input: $input, condition: $condition) {
-      cognitoId
       conversations {
-        createdAt
-        id
-        messages {
-          content
+        items {
           createdAt
           id
-          isSent
-          sender
+          hostID
+          name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+        nextToken
+        startedAt
       }
       id
       username
-      registered
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -45,35 +39,29 @@ export const updateUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     updateUser(input: $input, condition: $condition) {
-      cognitoId
       conversations {
-        createdAt
-        id
-        messages {
-          content
+        items {
           createdAt
           id
-          isSent
-          sender
+          hostID
+          name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+        nextToken
+        startedAt
       }
       id
       username
-      registered
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -83,35 +71,29 @@ export const deleteUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     deleteUser(input: $input, condition: $condition) {
-      cognitoId
       conversations {
-        createdAt
-        id
-        messages {
-          content
+        items {
           createdAt
           id
-          isSent
-          sender
+          hostID
+          name
           _version
           _deleted
           _lastChangedAt
           updatedAt
+          owner
         }
-        name
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
+        nextToken
+        startedAt
       }
       id
       username
-      registered
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -123,53 +105,46 @@ export const createConversation = /* GraphQL */ `
     createConversation(input: $input, condition: $condition) {
       createdAt
       id
-      messages {
-        author {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      hostID
+      host {
+        conversations {
+          nextToken
+          startedAt
         }
-        content
-        conversation {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        createdAt
         id
-        isSent
-        recipient {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        sender
+        username
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
+        owner
+      }
+      messages {
+        items {
+          authorID
+          content
+          conversationID
+          createdAt
+          id
+          isSent
+          recipientID
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       name
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -181,53 +156,46 @@ export const updateConversation = /* GraphQL */ `
     updateConversation(input: $input, condition: $condition) {
       createdAt
       id
-      messages {
-        author {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      hostID
+      host {
+        conversations {
+          nextToken
+          startedAt
         }
-        content
-        conversation {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        createdAt
         id
-        isSent
-        recipient {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        sender
+        username
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
+        owner
+      }
+      messages {
+        items {
+          authorID
+          content
+          conversationID
+          createdAt
+          id
+          isSent
+          recipientID
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       name
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -239,53 +207,46 @@ export const deleteConversation = /* GraphQL */ `
     deleteConversation(input: $input, condition: $condition) {
       createdAt
       id
-      messages {
-        author {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
+      hostID
+      host {
+        conversations {
+          nextToken
+          startedAt
         }
-        content
-        conversation {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
-        }
-        createdAt
         id
-        isSent
-        recipient {
-          cognitoId
-          id
-          username
-          registered
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-        }
-        sender
+        username
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
+        owner
+      }
+      messages {
+        items {
+          authorID
+          content
+          conversationID
+          createdAt
+          id
+          isSent
+          recipientID
+          sender
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          owner
+        }
+        nextToken
+        startedAt
       }
       name
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -295,75 +256,72 @@ export const createMessage = /* GraphQL */ `
     $condition: ModelMessageConditionInput
   ) {
     createMessage(input: $input, condition: $condition) {
+      authorID
       author {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       content
+      conversationID
       conversation {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       createdAt
       id
       isSent
+      recipientID
       recipient {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       sender
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -373,75 +331,72 @@ export const updateMessage = /* GraphQL */ `
     $condition: ModelMessageConditionInput
   ) {
     updateMessage(input: $input, condition: $condition) {
+      authorID
       author {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       content
+      conversationID
       conversation {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       createdAt
       id
       isSent
+      recipientID
       recipient {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       sender
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -451,75 +406,72 @@ export const deleteMessage = /* GraphQL */ `
     $condition: ModelMessageConditionInput
   ) {
     deleteMessage(input: $input, condition: $condition) {
+      authorID
       author {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       content
+      conversationID
       conversation {
         createdAt
         id
-        messages {
-          content
-          createdAt
+        hostID
+        host {
           id
-          isSent
-          sender
+          username
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
+          owner
+        }
+        messages {
+          nextToken
+          startedAt
         }
         name
         _version
         _deleted
         _lastChangedAt
         updatedAt
+        owner
       }
       createdAt
       id
       isSent
+      recipientID
       recipient {
-        cognitoId
         conversations {
-          createdAt
-          id
-          name
-          _version
-          _deleted
-          _lastChangedAt
-          updatedAt
+          nextToken
+          startedAt
         }
         id
         username
-        registered
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        owner
       }
       sender
       _version
       _deleted
       _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;

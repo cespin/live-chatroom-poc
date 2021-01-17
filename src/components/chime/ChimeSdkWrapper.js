@@ -14,7 +14,8 @@ import {
 import throttle from 'lodash/throttle';
 import awsconfig from '../../aws-exports';
 import * as config from '../../config';
-import Amplify, {API} from 'aws-amplify';
+import Amplify, {API, graphqlOperation } from 'aws-amplify';
+import { createUser } from '../../graphql/mutations'
 
 Amplify.configure(awsconfig);
 
@@ -65,6 +66,35 @@ export default class ChimeSdkWrapper {
             playbackURL,
             role
         };
+
+
+/*
+        const canvas = {
+            id: this.id,
+            clientId: this.clientId,
+            data: {
+                ...this.state,
+                lines: []
+            }
+        }
+
+
+
+        API.graphql(graphqlOperation(createUser, { input: canvas }))
+            .then(d => console.log('canvas created :', d))
+            .catch(err => {
+                if (err.errors[0].data.id === this.id) {
+                    const d = err.errors[0].data.data
+                    this.canvas.loadSaveData(d)
+                }
+            })
+
+
+*/
+
+
+
+
 
         const apiResponse = await API.post('meeting', '/join', {
             body: payload

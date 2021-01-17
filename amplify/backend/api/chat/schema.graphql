@@ -1,25 +1,33 @@
-type User @model {
-    cognitoId: ID!
-    conversations: [Conversation]
+type User @model
+    @auth(rules: [{ allow: owner, operations: [create, delete, update] }]) {
+    conversations: [Conversation] @connection(keyName: "byUser", fields: ["id"])
     id: ID!
     username: String!
-    registered: Boolean
 }
 
-type Conversation @model {
-    createdAt: String
+type Conversation @model
+    @auth(rules: [{ allow: owner, operations: [create, delete, update] }])
+    @key(name: "byUser", fields: ["hostID", "id"])  {
+    createdAt: AWSDateTime!
     id: ID!
-    messages: [Message]
+    hostID: ID!
+    host: User @connection(fields: ["hostID"])
+    messages: [Message] @connection(keyName: "byConversation", fields: ["id"])
     name: String!
 }
 
-type Message @model {
-    author: User!
+type Message @model
+    @auth(rules: [{ allow: owner, operations: [create, delete, update] }])
+    @key(name: "byConversation", fields: ["conversationID", "content"]) {
+    authorID: ID!
+    author: User @connection(fields: ["authorID"])
     content: String!
-    conversation: Conversation!
-    createdAt: String
+    conversationID: ID!
+    conversation: Conversation @connection(fields: ["conversationID"])
+    createdAt: AWSDateTime!
     id: ID!
     isSent: Boolean
-    recipient: User!
+    recipientID: ID!
+    recipient: User @connection(fields: ["recipientID"])
     sender: String
 }
