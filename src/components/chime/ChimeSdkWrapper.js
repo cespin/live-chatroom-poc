@@ -354,8 +354,8 @@ export default class ChimeSdkWrapper {
         try {
             if (end && this.title) {
                 await API.post('meeting', '/end', {
-                    queryStringParameters: {
-                        title: encodeURIComponent(this.title)
+                    body: {
+                        title: this.title
                     }
                 }).catch(error => {
                     console.log(JSON.stringify(error));

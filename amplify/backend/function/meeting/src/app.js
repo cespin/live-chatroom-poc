@@ -136,13 +136,9 @@ const endMeeting = async(title) => {
             },
         },
     };
-
     console.info("deleteMeeting > params:", JSON.stringify(params, null, 2));
-
     const result = await ddb.delete(params).promise();
-
     console.info("deleteMeeting > result:", JSON.stringify(result, null, 2));
-
     return result;
 };
 
@@ -162,15 +158,7 @@ const getAttendee = async(title, attendeeId) => {
 };
 
 app.post('/join', async (req, res) => {
-    let payload;
-
-    try {
-        payload = req.body;
-    } catch (err) {
-        console.log("join req > parse payload:", JSON.stringify(err, null, 2));
-        res.status(500).send(JSON.stringify(err));
-        return Promise.resolve();
-    }
+    let payload = req.body;
 
     if (!payload || !payload.title || !payload.name) {
         console.log("join > missing required fields: Must provide title and name");
@@ -247,17 +235,14 @@ app.get('/attendee', async (req, res) => {
     res.json(attendeeInfo);
 });
 
-app.get('/end', async (req, res) => {
-    console.log("end event:", JSON.stringify(req, null, 2));
-
-    if (!req.query.title) {
+app.post('/end', async (req, res) => {
+    if (!req.body || !req.body.title) {
         console.log("end event > missing required fields: Must provide title");
         res.status(400).send("Must provide title");
         return Promise.resolve();
     }
 
-    const title = simplifyTitle(req.query.title);
-    console.info("end event > res:", JSON.stringify(res, null, 2));
+    const title = simplifyTitle(req.body.title);
     res.json(endMeeting(title));
 });
 
