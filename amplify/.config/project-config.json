@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "livechatroompoc",
+  "projectName": "Live Chat Room PoC",
   "version": "3.0",
   "frontend": "javascript",
   "javascript": {
