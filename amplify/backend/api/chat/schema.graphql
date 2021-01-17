@@ -2,7 +2,6 @@ type User @model
     @auth(rules: [{ allow: owner, operations: [create, delete, update] }]) {
     conversations: [Conversation] @connection(keyName: "byUser", fields: ["id"])
     id: ID!
-    username: String!
 }
 
 type Conversation @model

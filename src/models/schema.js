@@ -23,13 +23,6 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "host"
                     }
-                },
-                "username": {
-                    "name": "username",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -266,5 +259,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "828ef6e4d9c22ea78f0b69516aa64086"
+    "version": "bcc58486ac59bffcd57e56f2fb508fa4"
 };

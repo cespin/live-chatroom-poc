@@ -12,12 +12,10 @@ import {
 } from 'amazon-chime-sdk-js';
 
 import throttle from 'lodash/throttle';
-import awsconfig from '../../aws-exports';
 import * as config from '../../config';
-import Amplify, {API, graphqlOperation } from 'aws-amplify';
-import { createUser } from '../../graphql/mutations'
-
-Amplify.configure(awsconfig);
+import {API, Auth} from 'aws-amplify';
+import {createUser, updateUser} from '../../graphql/mutations'
+import {getUser} from '../../graphql/queries'
 
 export default class ChimeSdkWrapper {
 
@@ -67,42 +65,31 @@ export default class ChimeSdkWrapper {
             role
         };
 
-
-/*
-        const canvas = {
-            id: this.id,
-            clientId: this.clientId,
-            data: {
-                ...this.state,
-                lines: []
-            }
-        }
-
-
-
-        API.graphql(graphqlOperation(createUser, { input: canvas }))
-            .then(d => console.log('canvas created :', d))
+        const cognitoUsername = await Auth.currentAuthenticatedUser()
+            .then(userSession => userSession.getUsername())
             .catch(err => {
-                if (err.errors[0].data.id === this.id) {
-                    const d = err.errors[0].data.data
-                    this.canvas.loadSaveData(d)
+                console.error(err);
+                throw new Error(JSON.stringify(err));
+            });
+        await API.graphql({query: getUser, variables: {id: cognitoUsername + "#" + name}})
+            .then(response => {
+                console.log("User is: ", response);
+                if (!response.data.getUser) {
+                    return API.graphql({
+                        query: createUser, variables: {
+                            input: {
+                                id: cognitoUsername + "#" + name
+                            }
+                        }
+                    });
                 }
-            })
-
-
-*/
-
-
-
-
+            });
 
         const apiResponse = await API.post('meeting', '/join', {
             body: payload
         }).catch(error => {
             console.log(JSON.stringify(error));
-            throw new Error(
-                JSON.stringify(error)
-            );
+            throw new Error(JSON.stringify(error));
         });
 
         const {JoinInfo} = apiResponse;

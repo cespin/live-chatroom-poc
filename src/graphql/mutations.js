@@ -23,7 +23,6 @@ export const createUser = /* GraphQL */ `
         startedAt
       }
       id
-      username
       _version
       _deleted
       _lastChangedAt
@@ -55,7 +54,6 @@ export const updateUser = /* GraphQL */ `
         startedAt
       }
       id
-      username
       _version
       _deleted
       _lastChangedAt
@@ -87,7 +85,6 @@ export const deleteUser = /* GraphQL */ `
         startedAt
       }
       id
-      username
       _version
       _deleted
       _lastChangedAt
@@ -112,7 +109,6 @@ export const createConversation = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -163,7 +159,6 @@ export const updateConversation = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -214,7 +209,6 @@ export const deleteConversation = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -263,7 +257,6 @@ export const createMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -279,7 +272,6 @@ export const createMessage = /* GraphQL */ `
         hostID
         host {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -308,7 +300,6 @@ export const createMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -338,7 +329,6 @@ export const updateMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -354,7 +344,6 @@ export const updateMessage = /* GraphQL */ `
         hostID
         host {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -383,7 +372,6 @@ export const updateMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -413,7 +401,6 @@ export const deleteMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -429,7 +416,6 @@ export const deleteMessage = /* GraphQL */ `
         hostID
         host {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -458,7 +444,6 @@ export const deleteMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt

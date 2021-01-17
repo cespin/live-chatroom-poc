@@ -20,7 +20,6 @@ export const syncUsers = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -52,7 +51,6 @@ export const getUser = /* GraphQL */ `
         startedAt
       }
       id
-      username
       _version
       _deleted
       _lastChangedAt
@@ -75,7 +73,6 @@ export const listUsers = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -107,7 +104,6 @@ export const syncConversations = /* GraphQL */ `
         hostID
         host {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -143,7 +139,6 @@ export const getConversation = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -192,7 +187,6 @@ export const listConversations = /* GraphQL */ `
         hostID
         host {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -233,7 +227,6 @@ export const syncMessages = /* GraphQL */ `
         authorID
         author {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -260,7 +253,6 @@ export const syncMessages = /* GraphQL */ `
         recipientID
         recipient {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -290,7 +282,6 @@ export const getMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -306,7 +297,6 @@ export const getMessage = /* GraphQL */ `
         hostID
         host {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -335,7 +325,6 @@ export const getMessage = /* GraphQL */ `
           startedAt
         }
         id
-        username
         _version
         _deleted
         _lastChangedAt
@@ -363,7 +352,6 @@ export const listMessages = /* GraphQL */ `
         authorID
         author {
           id
-          username
           _version
           _deleted
           _lastChangedAt
@@ -390,7 +378,6 @@ export const listMessages = /* GraphQL */ `
         recipientID
         recipient {
           id
-          username
           _version
           _deleted
           _lastChangedAt
