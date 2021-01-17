@@ -58,7 +58,7 @@ class Meeting extends Component {
         this.title = ssData.title;
         this.role = ssData.role;
 
-        if (!ssData.joinInfo) {
+        if (!ssData.joinInfo && this.role === 'host') {
           this.joinInfo = await this.props.chime.createRoom(this.role, this.username, this.title, ssData.playbackURL);
           const data = {
             ...ssData,
@@ -66,11 +66,14 @@ class Meeting extends Component {
           }
           sessionStorage.setItem(this.ssName, JSON.stringify(data));
           this.playbackURL = this.joinInfo.PlaybackURL;
-        } else {
+        } else if (!ssData.joinInfo) {
           // Browser refresh
           this.joinInfo = ssData.joinInfo;
           this.playbackURL = ssData.joinInfo.PlaybackURL;
           await this.props.chime.reInitializeMeetingSession(this.joinInfo, this.username);
+        } else {
+          alert('That meeting doesn not exist');
+          this.props.history.push(`${this.baseHref}/`);
         }
 
         this.setState({ meetingStatus: 'Success' });
