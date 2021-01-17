@@ -37,13 +37,13 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       conversations {
         items {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -99,7 +99,6 @@ export const syncConversations = /* GraphQL */ `
       lastSync: $lastSync
     ) {
       items {
-        createdAt
         id
         hostID
         host {
@@ -119,6 +118,7 @@ export const syncConversations = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
@@ -130,7 +130,6 @@ export const syncConversations = /* GraphQL */ `
 export const getConversation = /* GraphQL */ `
   query GetConversation($id: ID!) {
     getConversation(id: $id) {
-      createdAt
       id
       hostID
       host {
@@ -151,7 +150,6 @@ export const getConversation = /* GraphQL */ `
           authorID
           content
           conversationID
-          createdAt
           id
           isSent
           recipientID
@@ -159,6 +157,7 @@ export const getConversation = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -169,6 +168,7 @@ export const getConversation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -182,7 +182,6 @@ export const listConversations = /* GraphQL */ `
   ) {
     listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        createdAt
         id
         hostID
         host {
@@ -202,6 +201,7 @@ export const listConversations = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
@@ -237,17 +237,16 @@ export const syncMessages = /* GraphQL */ `
         content
         conversationID
         conversation {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
-        createdAt
         id
         isSent
         recipientID
@@ -264,6 +263,7 @@ export const syncMessages = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
@@ -292,7 +292,6 @@ export const getMessage = /* GraphQL */ `
       content
       conversationID
       conversation {
-        createdAt
         id
         hostID
         host {
@@ -312,10 +311,10 @@ export const getMessage = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
-      createdAt
       id
       isSent
       recipientID
@@ -336,6 +335,7 @@ export const getMessage = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -362,17 +362,16 @@ export const listMessages = /* GraphQL */ `
         content
         conversationID
         conversation {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
-        createdAt
         id
         isSent
         recipientID
@@ -389,6 +388,7 @@ export const listMessages = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }

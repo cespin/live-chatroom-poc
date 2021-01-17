@@ -9,13 +9,13 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       conversations {
         items {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -40,13 +40,13 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       conversations {
         items {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -71,13 +71,13 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       conversations {
         items {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -100,7 +100,6 @@ export const createConversation = /* GraphQL */ `
     $condition: ModelConversationConditionInput
   ) {
     createConversation(input: $input, condition: $condition) {
-      createdAt
       id
       hostID
       host {
@@ -121,7 +120,6 @@ export const createConversation = /* GraphQL */ `
           authorID
           content
           conversationID
-          createdAt
           id
           isSent
           recipientID
@@ -129,6 +127,7 @@ export const createConversation = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -139,6 +138,7 @@ export const createConversation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -150,7 +150,6 @@ export const updateConversation = /* GraphQL */ `
     $condition: ModelConversationConditionInput
   ) {
     updateConversation(input: $input, condition: $condition) {
-      createdAt
       id
       hostID
       host {
@@ -171,7 +170,6 @@ export const updateConversation = /* GraphQL */ `
           authorID
           content
           conversationID
-          createdAt
           id
           isSent
           recipientID
@@ -179,6 +177,7 @@ export const updateConversation = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -189,6 +188,7 @@ export const updateConversation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -200,7 +200,6 @@ export const deleteConversation = /* GraphQL */ `
     $condition: ModelConversationConditionInput
   ) {
     deleteConversation(input: $input, condition: $condition) {
-      createdAt
       id
       hostID
       host {
@@ -221,7 +220,6 @@ export const deleteConversation = /* GraphQL */ `
           authorID
           content
           conversationID
-          createdAt
           id
           isSent
           recipientID
@@ -229,6 +227,7 @@ export const deleteConversation = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -239,6 +238,7 @@ export const deleteConversation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -267,7 +267,6 @@ export const createMessage = /* GraphQL */ `
       content
       conversationID
       conversation {
-        createdAt
         id
         hostID
         host {
@@ -287,10 +286,10 @@ export const createMessage = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
-      createdAt
       id
       isSent
       recipientID
@@ -311,6 +310,7 @@ export const createMessage = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -339,7 +339,6 @@ export const updateMessage = /* GraphQL */ `
       content
       conversationID
       conversation {
-        createdAt
         id
         hostID
         host {
@@ -359,10 +358,10 @@ export const updateMessage = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
-      createdAt
       id
       isSent
       recipientID
@@ -383,6 +382,7 @@ export const updateMessage = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -411,7 +411,6 @@ export const deleteMessage = /* GraphQL */ `
       content
       conversationID
       conversation {
-        createdAt
         id
         hostID
         host {
@@ -431,10 +430,10 @@ export const deleteMessage = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
-      createdAt
       id
       isSent
       recipientID
@@ -455,6 +454,7 @@ export const deleteMessage = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }

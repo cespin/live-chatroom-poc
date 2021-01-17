@@ -6,13 +6,13 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       conversations {
         items {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -34,13 +34,13 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       conversations {
         items {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -62,13 +62,13 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       conversations {
         items {
-          createdAt
           id
           hostID
           name
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -88,7 +88,6 @@ export const onDeleteUser = /* GraphQL */ `
 export const onCreateConversation = /* GraphQL */ `
   subscription OnCreateConversation {
     onCreateConversation {
-      createdAt
       id
       hostID
       host {
@@ -109,7 +108,6 @@ export const onCreateConversation = /* GraphQL */ `
           authorID
           content
           conversationID
-          createdAt
           id
           isSent
           recipientID
@@ -117,6 +115,7 @@ export const onCreateConversation = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -127,6 +126,7 @@ export const onCreateConversation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -135,7 +135,6 @@ export const onCreateConversation = /* GraphQL */ `
 export const onUpdateConversation = /* GraphQL */ `
   subscription OnUpdateConversation {
     onUpdateConversation {
-      createdAt
       id
       hostID
       host {
@@ -156,7 +155,6 @@ export const onUpdateConversation = /* GraphQL */ `
           authorID
           content
           conversationID
-          createdAt
           id
           isSent
           recipientID
@@ -164,6 +162,7 @@ export const onUpdateConversation = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -174,6 +173,7 @@ export const onUpdateConversation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -182,7 +182,6 @@ export const onUpdateConversation = /* GraphQL */ `
 export const onDeleteConversation = /* GraphQL */ `
   subscription OnDeleteConversation {
     onDeleteConversation {
-      createdAt
       id
       hostID
       host {
@@ -203,7 +202,6 @@ export const onDeleteConversation = /* GraphQL */ `
           authorID
           content
           conversationID
-          createdAt
           id
           isSent
           recipientID
@@ -211,6 +209,7 @@ export const onDeleteConversation = /* GraphQL */ `
           _version
           _deleted
           _lastChangedAt
+          createdAt
           updatedAt
           owner
         }
@@ -221,6 +220,7 @@ export const onDeleteConversation = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -246,7 +246,6 @@ export const onCreateMessage = /* GraphQL */ `
       content
       conversationID
       conversation {
-        createdAt
         id
         hostID
         host {
@@ -266,10 +265,10 @@ export const onCreateMessage = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
-      createdAt
       id
       isSent
       recipientID
@@ -290,6 +289,7 @@ export const onCreateMessage = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -315,7 +315,6 @@ export const onUpdateMessage = /* GraphQL */ `
       content
       conversationID
       conversation {
-        createdAt
         id
         hostID
         host {
@@ -335,10 +334,10 @@ export const onUpdateMessage = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
-      createdAt
       id
       isSent
       recipientID
@@ -359,6 +358,7 @@ export const onUpdateMessage = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }
@@ -384,7 +384,6 @@ export const onDeleteMessage = /* GraphQL */ `
       content
       conversationID
       conversation {
-        createdAt
         id
         hostID
         host {
@@ -404,10 +403,10 @@ export const onDeleteMessage = /* GraphQL */ `
         _version
         _deleted
         _lastChangedAt
+        createdAt
         updatedAt
         owner
       }
-      createdAt
       id
       isSent
       recipientID
@@ -428,6 +427,7 @@ export const onDeleteMessage = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      createdAt
       updatedAt
       owner
     }

@@ -7,7 +7,6 @@ type User @model
 type Conversation @model
     @auth(rules: [{ allow: owner, operations: [create, delete, update] }])
     @key(name: "byUser", fields: ["hostID", "id"])  {
-    createdAt: AWSDateTime!
     id: ID!
     hostID: ID!
     host: User @connection(fields: ["hostID"])
@@ -23,7 +22,6 @@ type Message @model
     content: String!
     conversationID: ID!
     conversation: Conversation @connection(fields: ["conversationID"])
-    createdAt: AWSDateTime!
     id: ID!
     isSent: Boolean
     recipientID: ID!

@@ -14,8 +14,14 @@ import {
 import throttle from 'lodash/throttle';
 import * as config from '../../config';
 import {API, Auth} from 'aws-amplify';
-import {createUser, updateUser} from '../../graphql/mutations'
+import {createUser, createConversation} from '../../graphql/mutations'
 import {getUser} from '../../graphql/queries'
+
+const simplifyTitle = title => {
+    // Strip out most symbolic characters and whitespace and make case insensitive,
+    // but preserve any Unicode characters outside of the ASCII range.
+    return (title || '').replace(/[\s()!@#$%^&*`~_=+{}|\\;:'",.<>/?\[\]-]+/gu, '').toLowerCase() || null;
+};
 
 export default class ChimeSdkWrapper {
 
@@ -65,26 +71,6 @@ export default class ChimeSdkWrapper {
             role
         };
 
-        const cognitoUsername = await Auth.currentAuthenticatedUser()
-            .then(userSession => userSession.getUsername())
-            .catch(err => {
-                console.error(err);
-                throw new Error(JSON.stringify(err));
-            });
-        await API.graphql({query: getUser, variables: {id: cognitoUsername + "#" + name}})
-            .then(response => {
-                console.log("User is: ", response);
-                if (!response.data.getUser) {
-                    return API.graphql({
-                        query: createUser, variables: {
-                            input: {
-                                id: cognitoUsername + "#" + name
-                            }
-                        }
-                    });
-                }
-            });
-
         const apiResponse = await API.post('meeting', '/join', {
             body: payload
         }).catch(error => {
@@ -102,11 +88,11 @@ export default class ChimeSdkWrapper {
             JoinInfo.Meeting,
             JoinInfo.Attendee
         );
-        await this.initializeMeetingSession(this.configuration);
-
         this.title = title;
         this.name = name;
         this.region = region;
+
+        await this.initializeMeetingSession(this.configuration, true);
 
         return JoinInfo;
     }
@@ -116,14 +102,47 @@ export default class ChimeSdkWrapper {
             JoinInfo.Meeting,
             JoinInfo.Attendee
         );
-        await this.initializeMeetingSession(this.configuration);
-
         this.title = JoinInfo.Title;
         this.name = name;
         // this.region = region;
+
+        await this.initializeMeetingSession(this.configuration);
     }
 
-    async initializeMeetingSession(configuration) {
+    async initializeMeetingSession(configuration, alsoCreateConversation) {
+        const cognitoUsername = await Auth.currentAuthenticatedUser()
+            .then(userSession => userSession.getUsername())
+            .catch(err => {
+                console.error(err);
+                throw new Error(JSON.stringify(err));
+            });
+        await API.graphql({query: getUser, variables: {id: cognitoUsername + "#" + this.name}})
+            .then(response => {
+                console.log("User is: ", response);
+                if (!response.data.getUser) {
+                    return API.graphql({
+                        query: createUser, variables: {
+                            input: {
+                                id: cognitoUsername + "#" + this.name
+                            }
+                        }
+                    });
+                }
+            }).then(() => {
+                if (!alsoCreateConversation) {
+                    return;
+                }
+
+                return API.graphql({
+                    query: createConversation, variables: {
+                        input: {
+                            id: simplifyTitle(this.title),
+                            hostID: cognitoUsername + "#" + this.name,
+                            name: this.title
+                        }
+                    }
+                })
+            });
         const logger = new ConsoleLogger('SDK', LogLevel.ERROR);
         const deviceController = new DefaultDeviceController(logger);
         this.meetingSession = new DefaultMeetingSession(

@@ -62,13 +62,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "host": {
                     "name": "host",
                     "isArray": false,
@@ -184,13 +177,6 @@ export const schema = {
                         "targetName": "conversationID"
                     }
                 },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "isSent": {
                     "name": "isSent",
                     "isArray": false,
@@ -259,5 +245,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "bcc58486ac59bffcd57e56f2fb508fa4"
+    "version": "8c18e5a4e25d5f47a492e49485963eaf"
 };
