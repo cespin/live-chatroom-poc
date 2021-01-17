@@ -39,7 +39,7 @@ class Chat extends Component {
             next: ({provider, value}) => {
                 console.log({provider, value});
                 const messages = this.state.messages;
-                const data = value.split('::');
+                const data = value.data.onCreateMessage.content.split('::');
                 const username = data[0];
                 const message = data.slice(1).join('::'); // in case the message contains the separator '::'
 
