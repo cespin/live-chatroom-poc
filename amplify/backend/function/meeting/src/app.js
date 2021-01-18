@@ -176,7 +176,7 @@ app.post('/join', async (req, res) => {
     const name = payload.name;
     const region = payload.region || 'us-east-1';
     let meetingInfo = await getMeeting(title);
-    async function createAttendee(info) {
+    const createAttendee = async info => {
         console.info("join req > meetingInfo:", JSON.stringify(info, null, 2));
         console.info('join req > Adding new attendee');
         const attendeeInfo = (await chime.createAttendee({
@@ -186,7 +186,7 @@ app.post('/join', async (req, res) => {
         console.info("join req > attendeeInfo:", JSON.stringify(attendeeInfo, null, 2));
         await putAttendee(title, attendeeInfo.Attendee.AttendeeId, name);
         return attendeeInfo;
-    }
+    };
     let attendeeInfo;
 
     // If meeting does not exist and role equal to "host" then create meeting room
