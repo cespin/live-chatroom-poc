@@ -156,7 +156,7 @@ class RemoteVideoGroup extends Component {
   render() {
     return(
       <React.Fragment>
-        {this.state.roster.map((attendee, index) => {
+        {this.state.roster.filter(attendee => attendee.attendeeId !== this.props.hostAttendeeId).map((attendee, index) => {
           return (
             <RemoteVideo
               chime={this.props.chime}
