@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class LocalVideo extends Component {
+class OneSpecificVideo extends Component {
 
   state = {
     enabled: false,
@@ -20,7 +20,7 @@ class LocalVideo extends Component {
     for (attendeeId in newRoster) {
 
       // Exclude others
-      if (attendeeId !== this.props.joinInfo.Attendee.AttendeeId) {
+      if ((this.props.joinInfo.whoseVideo === "local" && attendeeId !== this.props.joinInfo.Attendee.AttendeeId) || this.props.joinInfo.whoseVideo !== attendeeId) {
         continue;
       }
 
@@ -100,9 +100,10 @@ class LocalVideo extends Component {
   }
 }
 
-LocalVideo.propTypes = {
+OneSpecificVideo.propTypes = {
   chime: PropTypes.object,
-  joinInfo: PropTypes.object
+  joinInfo: PropTypes.object,
+  whoseVideo: PropTypes.string
 };
 
-export default LocalVideo;
+export default OneSpecificVideo;

@@ -8,11 +8,10 @@ import {
 } from 'amazon-chime-sdk-js';
 
 // Components
-import VideoPlayer from '../videoPlayer/VideoPlayer';
 import Chat from '../chat/Chat';
 import Controls from './Controls';
 import Settings from './Settings';
-import LocalVideo from './LocalVideo';
+import OneSpecificVideo from './OneSpecificVideo';
 import RemoteVideoGroup from './RemoteVideoGroup';
 import Error from './Error';
 
@@ -155,18 +154,20 @@ class Meeting extends Component {
       <div className="app-grid" onClick={this.handleClick}>
         <div className="main-stage">
           <div className="cams pos-relative">
-          <LocalVideo
+          <OneSpecificVideo
             chime={this.props.chime}
             joinInfo={this.joinInfo}
+            whoseVideo={"local"}
           />
           <RemoteVideoGroup
             chime={this.props.chime}
             joinInfo={this.joinInfo}
           />
           </div>
-          <VideoPlayer
-            setMetadataId={this.setMetadataId}
-            videoStream={this.playbackURL}
+          <OneSpecificVideo
+              chime={this.props.chime}
+              joinInfo={this.joinInfo}
+              whoseVideo={this.joinInfo.HostAttendeeId}
           />
           <Controls
             chime={this.props.chime}
