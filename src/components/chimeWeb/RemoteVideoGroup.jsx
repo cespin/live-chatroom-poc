@@ -61,8 +61,8 @@ class RemoteVideoGroup extends Component {
     let attendeeId;
     for (attendeeId in newRoster) {
 
-      // Exclude self
-      if (attendeeId === this.props.joinInfo.Attendee.AttendeeId) {
+      // Exclude self and host
+      if (attendeeId === this.props.joinInfo.Attendee.AttendeeId || attendeeId === this.props.hostAttendeeId) {
         continue;
       }
 
@@ -176,7 +176,8 @@ class RemoteVideoGroup extends Component {
 
 RemoteVideoGroup.propTypes = {
   chime: PropTypes.object,
-  joinInfo: PropTypes.object
+  joinInfo: PropTypes.object,
+  hostAttendeeId: PropTypes.string
 };
 
 export default RemoteVideoGroup;

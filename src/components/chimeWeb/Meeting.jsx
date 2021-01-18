@@ -157,17 +157,16 @@ class Meeting extends Component {
           <div className="cams pos-relative">
           <OneSpecificVideo
             chime={this.props.chime}
-            joinInfo={this.joinInfo}
             whoseVideo={this.joinInfo.Attendee.AttendeeId}
           />
           <RemoteVideoGroup
             chime={this.props.chime}
+            hostAttendeeId={this.joinInfo.HostAttendeeId}
             joinInfo={this.joinInfo}
           />
           </div>
           <OneSpecificVideo
               chime={this.props.chime}
-              joinInfo={this.joinInfo}
               whoseVideo={this.joinInfo.HostAttendeeId}
           />
           <Controls
