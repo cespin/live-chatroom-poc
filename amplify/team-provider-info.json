@@ -34,6 +34,17 @@
       "StackName": "amplify-livechatroompoc-main-134145",
       "StackId": "arn:aws:cloudformation:us-east-2:250036610033:stack/amplify-livechatroompoc-main-134145/85d8cf30-4097-11eb-8e52-0ad580af85c0",
       "AmplifyAppId": "d36no5iczewz3v"
+    },
+    "categories": {
+      "auth": {
+        "livechatroompoc90a372a6": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "livechatroompoc90a372a6PostConfirmation": {
+          "GROUP": "Users"
+        }
+      }
     }
   }
 }
