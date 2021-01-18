@@ -9,7 +9,7 @@ exports.handler = async (event, context, callback) => {
     Username: event.userName,
   };
 
-  if (event.request.userAttributes.email.endsWith("espin.xyz") || event.request.userAttributes.email.endsWith("mavtek.com")) {
+  if (event.request.userAttributes.email.endsWith("espin.xyz")) {
     addUserParams.GroupName = "Hosts";
   }
 

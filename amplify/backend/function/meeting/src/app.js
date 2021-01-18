@@ -172,6 +172,11 @@ app.post('/join', async (req, res) => {
         return Promise.resolve();
     }
 
+    if (payload.group !== 'Hosts' && payload.role === 'host' ) {
+        res.status(403).send("You are not allowed to create meetings");
+        return Promise.resolve();
+    }
+
     const title = simplifyTitle(payload.title);
     const name = payload.name;
     const region = payload.region || 'us-east-1';

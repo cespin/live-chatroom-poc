@@ -65,6 +65,17 @@ export default class ChimeSdkWrapper {
             role
         };
 
+        await Auth.currentSession()
+            .then(session => {
+                const accessToken = session.getAccessToken();
+                if (!accessToken || !accessToken["payload"] || !accessToken["payload"]["cognito:groups"] || !accessToken["payload"]["cognito:groups"].length) {
+                    throw new Error(
+                        'Cannot determine Cognito Group'
+                    );
+                }
+
+                payload.group = accessToken["payload"]["cognito:groups"][0];
+            });
         const apiResponse = await API.post('meeting', '/join', {
             body: payload
         }).catch(error => {
