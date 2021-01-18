@@ -58,11 +58,11 @@ class Welcome extends Component {
   }
 
   async createRoom() {
-    const { title, username, playbackURL } = this.state;
+    const { title, username } = this.state;
     const data = {
       username,
       title,
-      playbackURL,
+      playbackURL: "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.DmumNckWFTqz.m3u8",
       role: this.state.role
     }
     sessionStorage.setItem(`chime[${title}]`, JSON.stringify(data));
@@ -90,7 +90,7 @@ class Welcome extends Component {
                 <fieldset className="mg-b-2">
                   <input className="mg-b-2" type="text" placeholder="Your name" value={username} ref={this.inputRef} onChange={this.handleNameChange} />
                   <input type="text" placeholder="Room name" value={title} onChange={this.handleRoomChange} />
-                  <input type="text" placeholder="Playback URL" value={playbackURL} onChange={this.handlePlaybackURLChange} />
+                  {/*<input type="text" placeholder="Playback URL" value={playbackURL} onChange={this.handlePlaybackURLChange} />*/}
                   <button className="mg-t-2 btn btn--primary" disabled={createRoomDisabled} onClick={this.handleCreateRoom} >Create room</button>
                 </fieldset>
               </form>
