@@ -176,6 +176,18 @@ app.post('/join', async (req, res) => {
     const name = payload.name;
     const region = payload.region || 'us-east-1';
     let meetingInfo = await getMeeting(title);
+    async function createAttendee(info) {
+        console.info("join req > meetingInfo:", JSON.stringify(info, null, 2));
+        console.info('join req > Adding new attendee');
+        const attendeeInfo = (await chime.createAttendee({
+            MeetingId: info.Meeting.MeetingId,
+            ExternalUserId: uuid(),
+        }).promise());
+        console.info("join req > attendeeInfo:", JSON.stringify(attendeeInfo, null, 2));
+        await putAttendee(title, attendeeInfo.Attendee.AttendeeId, name);
+        return attendeeInfo;
+    }
+    let attendeeInfo;
 
     // If meeting does not exist and role equal to "host" then create meeting room
     if (!meetingInfo && payload.role === 'host') {
@@ -185,27 +197,22 @@ app.post('/join', async (req, res) => {
         };
         console.info('join req > Creating new meeting: ' + JSON.stringify(request, null, 2));
         meetingInfo = await chime.createMeeting(request).promise();
+        attendeeInfo = await createAttendee(meetingInfo);
         meetingInfo.PlaybackURL = payload.playbackURL;
+        meetingInfo.HostAttendeeId = attendeeInfo.Attendee.AttendeeId;
         await putMeeting(title, payload.playbackURL, meetingInfo);
     }
 
-    console.info("join req > meetingInfo:", JSON.stringify(meetingInfo, null, 2));
-
-    console.info('join req > Adding new attendee');
-    const attendeeInfo = (await chime.createAttendee({
-        MeetingId: meetingInfo.Meeting.MeetingId,
-        ExternalUserId: uuid(),
-    }).promise());
-
-    console.info("join req > attendeeInfo:", JSON.stringify(attendeeInfo, null, 2));
-
-    await putAttendee(title, attendeeInfo.Attendee.AttendeeId, name);
+    if (!attendeeInfo) {
+        attendeeInfo = await createAttendee(meetingInfo);
+    }
 
     const joinInfo = {
         JoinInfo: {
             Title: title,
             PlaybackURL: meetingInfo.PlaybackURL,
             Meeting: meetingInfo.Meeting,
+            HostAttendeeId: meetingInfo.HostAttendeeId,
             Attendee: attendeeInfo.Attendee
         },
     };
