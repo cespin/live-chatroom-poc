@@ -18,13 +18,10 @@ class OneSpecificVideo extends Component {
 
     let attendeeId;
     for (attendeeId in newRoster) {
-
-      // Exclude others
-      if ((this.props.joinInfo.whoseVideo === "local" && attendeeId !== this.props.joinInfo.Attendee.AttendeeId) || this.props.joinInfo.whoseVideo !== attendeeId) {
-        continue;
+      if (this.props.joinInfo.whoseVideo === attendeeId) {
+        this.setState({ muted: newRoster[attendeeId].muted });
+        break;
       }
-
-      this.setState({ muted: newRoster[attendeeId].muted });
     }
   };
 

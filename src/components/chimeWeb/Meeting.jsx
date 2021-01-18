@@ -149,6 +149,7 @@ class Meeting extends Component {
     if(this.state.meetingStatus !== 'Success') {
       return;
     }
+    console.log("Host is ", this.joinInfo.HostAttendeeId);
 
     return (
       <div className="app-grid" onClick={this.handleClick}>
@@ -157,7 +158,7 @@ class Meeting extends Component {
           <OneSpecificVideo
             chime={this.props.chime}
             joinInfo={this.joinInfo}
-            whoseVideo={"local"}
+            whoseVideo={this.joinInfo.Attendee.AttendeeId}
           />
           <RemoteVideoGroup
             chime={this.props.chime}
