@@ -11,12 +11,13 @@ import {
 import Chat from '../chat/Chat';
 import Controls from './Controls';
 import Settings from './Settings';
-import OneSpecificVideo from './OneSpecificVideo';
+import LocalVideo from './LocalVideo';
 import RemoteVideoGroup from './RemoteVideoGroup';
 import Error from './Error';
 
 // Styles
 import './ChimeWeb.css';
+import RemoteVideo from "./RemoteVideo";
 
 class Meeting extends Component {
 
@@ -155,7 +156,7 @@ class Meeting extends Component {
       <div className="app-grid" onClick={this.handleClick}>
         <div className="main-stage">
           <div className="cams pos-relative">
-          <OneSpecificVideo
+          <LocalVideo
             chime={this.props.chime}
             whoseVideo={this.joinInfo.Attendee.AttendeeId}
           />
@@ -165,9 +166,13 @@ class Meeting extends Component {
             joinInfo={this.joinInfo}
           />
           </div>
-          <OneSpecificVideo
+          <RemoteVideo
               chime={this.props.chime}
-              whoseVideo={this.joinInfo.HostAttendeeId}
+              attendeeId={this.joinInfo.HostAttendeeId}
+              videoEnabled={true}
+              name={"Host"}
+              muted={false}
+              videoElement={React.createRef()}
           />
           <Controls
             chime={this.props.chime}

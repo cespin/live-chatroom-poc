@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class OneSpecificVideo extends Component {
+class LocalVideo extends Component {
 
   state = {
     enabled: false,
@@ -97,9 +97,9 @@ class OneSpecificVideo extends Component {
   }
 }
 
-OneSpecificVideo.propTypes = {
+LocalVideo.propTypes = {
   chime: PropTypes.object,
   whoseVideo: PropTypes.string
 };
 
-export default OneSpecificVideo;
+export default LocalVideo;
